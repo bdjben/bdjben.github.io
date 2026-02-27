@@ -1,0 +1,144 @@
+{
+  "entries": [
+    {
+      "timestamp": "2026-02-23T14:30:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "CloudNine Ventures \u2014 Buyer Persona Research",
+          "summary": "Status changed from in-progress \u2192 completed. All 8 customer interviews done, persona deck delivered to Priya Sharma with 4 primary segments."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-23T15:00:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "DataFlow Inc \u2014 SEO Audit Implementation",
+          "summary": "Updated progress notes. Technical fixes (site speed optimization, schema markup) are 70% complete. Content gap analysis started."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-23T19:30:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "Apex Dynamics \u2014 Leadership Workshop Prep",
+          "summary": "Slide deck now 60% complete. Added two new case studies; still need to finalize the B2B SaaS metrics section."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-24T09:15:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "CloudNine Ventures \u2014 Contract Amendment",
+          "summary": "Legal review completed. Amendment expands scope to include investor relations comms (+15 hrs/month). Awaiting final deliverables language check."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-24T10:00:00+02:00",
+      "changes": [
+        {
+          "type": "added",
+          "itemTitle": "Vantage Partners \u2014 New Client Onboarding",
+          "summary": "New client signed! Vantage Partners engagement begins. Discovery phase starting with stakeholder interviews this week."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-24T16:30:00+02:00",
+      "changes": [
+        {
+          "type": "added",
+          "itemTitle": "DataFlow Inc \u2014 Billing Discrepancy Resolution",
+          "summary": "DataFlow's AP flagged $2,400 discrepancy on January invoice. Added as urgent \u2014 need to reconcile hours and send corrected invoice."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-24T18:00:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "TechBridge Solutions \u2014 January Analytics Report",
+          "summary": "Draft completed and moved to Needs Review. Key highlight: 34% MQL increase. Needs proofread before sending to client."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-24T22:10:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "TechBridge Solutions \u2014 Campaign Launch Prep",
+          "summary": "Moved to Urgent. Campaign going live Feb 26 morning. Final creatives and audience segments need approval."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-25T05:45:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "CloudNine Ventures \u2014 Urgent Investor Deck Feedback",
+          "summary": "Priya Sharma sent revised investor deck overnight. Moved to Urgent \u2014 feedback needed before their 4 PM board meeting today."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-25T06:15:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "Meridian Analytics \u2014 Q1 Proposal Draft",
+          "summary": "Status changed from in-progress \u2192 pending-review. Draft proposal completed and ready for final review of pricing tiers before submission to Marcus Rivera."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26T09:15:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "TechBridge Solutions \u2014 Campaign Launch Prep",
+          "summary": "Status changed from in-progress \u2192 completed. TechBridge campaign launched successfully across all channels this morning."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26T11:30:00+02:00",
+      "changes": [
+        {
+          "type": "added",
+          "itemTitle": "Apex Dynamics \u2014 Q2 Strategy Proposal",
+          "summary": "New item added: Apex Dynamics Q2 strategy proposal \u2014 initial brief received from Marcus, scoping in progress."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26T14:00:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "DataFlow Inc \u2014 Billing Discrepancy Resolution",
+          "summary": "Status changed from action-needed \u2192 in-progress. Billing discrepancy resolved after corrected invoice sent and confirmed by AP team."
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26T16:00:00+02:00",
+      "changes": [
+        {
+          "type": "modified",
+          "itemTitle": "CloudNine Ventures \u2014 Urgent Investor Deck Feedback",
+          "summary": "Deadline updated from Feb 26 \u2192 Mar 1. Investor deck review rescheduled at client request \u2014 board meeting postponed."
+        }
+      ]
+    }
+  ]
+}

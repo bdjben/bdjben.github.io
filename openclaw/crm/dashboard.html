@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=2560,initial-scale=1">
+<title>Dashboard Demo - CRM</title>
+<style>
+/* ============================================================
+   CRM PIPELINE DASHBOARD — Demo Version
+   Two-column: Client Pipeline (65-70%) | Calendar Sidebar (30-35%)
+   ============================================================ */
+
+:root {
+  --bg: #0a0e14;
+  --bg-card: #111822;
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0, 212, 255, 0.08);
+  --cyan-glow: rgba(0, 212, 255, 0.6);
+  --red: #ff3333;
+  --red-glow: rgba(255, 51, 51, 0.6);
+  --amber: #ffb800;
+  --green: #00ff88;
+  --teal: #00bfa5;
+  --blue: #4488ff;
+  --gray: #555;
+  --gray-dim: #333;
+  --text: #c8d6e5;
+  --text-dim: #667788;
+  --font: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+  --stage-inquiry: #ff6b6b;
+  --stage-responded: #ffa94d;
+  --stage-qualifying: #ffd43b;
+  --stage-consultation-scheduled: #69db7c;
+  --stage-consultation-complete: #38d9a9;
+  --stage-proposal-sent: #4dabf7;
+  --stage-active: #00ff88;
+  --stage-completed: #748ffc;
+  --stage-lost: #868e96;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100vw; height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: clamp(11px, 1vw, 18px);
+  line-height: 1.5;
+}
+body { display: flex; flex-direction: column; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.6); }
+
+.scanlines {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+}
+
+.hud-frame { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
+.corner {
+  position: absolute; width: 50px; height: 50px;
+  border-color: var(--cyan); border-style: solid; border-width: 0;
+  opacity: 0.7; filter: drop-shadow(0 0 6px var(--cyan-glow));
+  animation: cornerPulse 3s ease-in-out infinite;
+}
+.corner.tl { top: 4px; left: 4px; border-top-width: 2px; border-left-width: 2px; }
+.corner.tr { top: 4px; right: 4px; border-top-width: 2px; border-right-width: 2px; }
+.corner.bl { bottom: 4px; left: 4px; border-bottom-width: 2px; border-left-width: 2px; }
+.corner.br { bottom: 4px; right: 4px; border-bottom-width: 2px; border-right-width: 2px; }
+
+@keyframes cornerPulse {
+  0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 4px var(--cyan-glow)); }
+  50% { opacity: 0.9; filter: drop-shadow(0 0 14px var(--cyan-glow)); }
+}
+
+/* === Top Bar === */
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5vw;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.05) 0%, transparent 100%);
+  height: 6vh; min-height: 40px; flex-shrink: 0;
+}
+.top-left { display: flex; flex-direction: column; justify-content: center; }
+.title {
+  font-size: clamp(20px, 2.2vw, 42px); font-weight: 700;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--cyan); text-shadow: 0 0 20px var(--cyan-glow), 0 0 40px rgba(0,212,255,0.2);
+  text-decoration: none; cursor: pointer; transition: all 0.3s;
+}
+.title-link { text-decoration: none; color: var(--cyan); }
+.title-link:hover { text-shadow: 0 0 30px var(--cyan-glow), 0 0 60px rgba(0,212,255,0.4); filter: brightness(1.3); }
+.nav-arrow { opacity: 0; transition: opacity 0.3s; font-size: 0.7em; color: var(--cyan); }
+.title-link:hover .nav-arrow { opacity: 0.6; }
+.subtitle {
+  font-size: clamp(10px, 0.8vw, 15px); letter-spacing: 0.4em;
+  color: var(--text-dim); margin-top: 1px;
+}
+.top-center {
+  display: flex; align-items: center; gap: 1em;
+  font-size: clamp(11px, 0.95vw, 17px); letter-spacing: 0.15em; color: var(--text-dim);
+}
+.sep { opacity: 0.25; }
+.status-dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 8px var(--green);
+  animation: pulse-green 2s ease-in-out infinite; margin-right: 6px;
+}
+.status-text { color: var(--green); }
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 4px var(--green); }
+  50% { box-shadow: 0 0 12px var(--green), 0 0 24px rgba(0,255,136,0.3); }
+}
+.top-right { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+.clock {
+  font-size: clamp(11px, 0.95vw, 17px); font-weight: 700;
+  letter-spacing: 0.2em; color: var(--cyan);
+  text-shadow: 0 0 15px var(--cyan-glow), 0 0 30px rgba(0,212,255,0.2);
+}
+.datedisp { font-size: clamp(11px, 0.95vw, 17px); letter-spacing: 0.25em; color: var(--text-dim); }
+.refresh-btn {
+  background: none; border: 1px solid rgba(0, 212, 255, 0.2); color: var(--cyan);
+  font-size: clamp(11px, 0.95vw, 17px); padding: 4px 10px; cursor: pointer;
+  font-family: var(--font); letter-spacing: 0.1em; border-radius: 3px;
+  transition: all 0.2s;
+}
+.refresh-btn:hover { background: rgba(0, 212, 255, 0.1); border-color: rgba(0, 212, 255, 0.4); }
+.refresh-btn.spinning { animation: spin 0.6s ease-in-out; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.invoices-btn {
+  background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--cyan); padding: 4px 14px; font-family: var(--font);
+  font-size: clamp(11px, 0.88vw, 16px); letter-spacing: 0.2em;
+  cursor: pointer; position: relative; transition: all 0.3s; border-radius: 3px;
+}
+.invoices-btn:hover { background: rgba(0, 212, 255, 0.15); box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
+.invoices-badge {
+  position: absolute; top: -6px; right: -6px; background: var(--amber); color: #000;
+  font-size: 10px; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; padding: 0 4px;
+}
+
+/* === Main Two-Column Layout === */
+.main-area { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+.left-column {
+  flex: 5; display: flex; min-height: 0; overflow: hidden;
+  border-right: 1px solid rgba(0, 212, 255, 0.08);
+}
+
+.pipeline-sidebar {
+  width: 360px; min-width: 280px; max-width: 440px;
+  display: flex; flex-direction: column;
+  border-right: 1px solid rgba(0, 212, 255, 0.06);
+  padding: 0.5vh 0.4vw; overflow: hidden;
+}
+
+.client-area {
+  flex: 1; display: flex; flex-direction: column;
+  min-height: 0; overflow: hidden; padding: 0.5vh 0.5vw;
+}
+
+.right-column {
+  flex: 5; display: flex; flex-direction: column;
+  min-height: 0; overflow: hidden; padding: 0.5vh 0.4vw;
+}
+
+/* === Section Headers === */
+.section-header {
+  display: flex; align-items: center; gap: 0.6em;
+  padding: 0.4vh 0; margin-bottom: 0.4vh; flex-shrink: 0;
+}
+.header-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,212,255,0.2), transparent); }
+.header-text {
+  font-size: clamp(9px, 0.72vw, 13px); letter-spacing: 0.3em;
+  color: var(--text-dim); text-transform: uppercase; white-space: nowrap;
+}
+.header-count {
+  font-size: clamp(10px, 0.78vw, 15px); color: var(--cyan);
+  background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
+  padding: 0 0.5em; border-radius: 2px;
+}
+.header-btn {
+  background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.3);
+  color: var(--green); padding: 2px 10px; cursor: pointer; font-family: var(--font);
+  font-size: clamp(9px, 0.72vw, 13px); letter-spacing: 0.1em;
+  transition: all 0.2s; border-radius: 3px; white-space: nowrap;
+}
+.header-btn:hover { background: rgba(0,255,136,0.15); box-shadow: 0 0 10px rgba(0,255,136,0.2); }
+
+/* === Pipeline Sidebar === */
+.pipeline-list {
+  flex: 1; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 0.3vh;
+}
+.stage-row {
+  display: flex; flex-direction: column; gap: 3px;
+  cursor: pointer; padding: 5px 6px; border-radius: 4px;
+  border: 1px solid transparent; transition: all 0.2s;
+  background: rgba(255,255,255,0.01);
+}
+.stage-row:hover { background: rgba(0,212,255,0.04); border-color: rgba(0,212,255,0.12); }
+.stage-row.active-filter { background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.3); box-shadow: 0 0 10px rgba(0,212,255,0.1); }
+.stage-row.empty { opacity: 0.35; cursor: default; }
+.stage-meta { display: flex; align-items: center; gap: 0.3em; justify-content: space-between; }
+.stage-label-row { display: flex; align-items: center; gap: 0.3em; flex: 1; min-width: 0; }
+.stage-icon { font-size: 0.85em; }
+.stage-name {
+  font-size: clamp(8px, 0.67vw, 12px); letter-spacing: 0.08em;
+  color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.stage-count { font-size: clamp(10px, 0.78vw, 15px); font-weight: 700; min-width: 1.2em; text-align: right; flex-shrink: 0; }
+.stage-bar-track { height: 4px; background: rgba(255,255,255,0.04); border-radius: 3px; overflow: hidden; }
+.stage-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; min-width: 2px; }
+
+.pipeline-summary {
+  margin-top: 0.8vh; padding: 6px; background: var(--bg-card);
+  border: 1px solid rgba(0,212,255,0.1); border-radius: 4px; flex-shrink: 0;
+}
+.ps-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 2px 0; font-size: clamp(8px, 0.65vw, 11px); color: var(--text-dim);
+}
+.ps-row .ps-val { font-size: clamp(9px, 0.72vw, 13px); color: var(--text); }
+.ps-row .ps-val.highlight { color: var(--cyan); }
+.ps-row .ps-val.danger { color: var(--red); }
+
+/* === Client Cards === */
+.filter-indicator {
+  display: none; align-items: center; gap: 0.5em;
+  padding: 3px 8px; background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.2); border-radius: 3px;
+  font-size: clamp(9px, 0.69vw, 12px); letter-spacing: 0.1em;
+  color: var(--cyan); margin-bottom: 0.4vh; flex-shrink: 0; cursor: pointer;
+}
+.filter-indicator.visible { display: flex; }
+
+.client-list-wrapper {
+  flex: 1; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 0.5vh;
+}
+
+.client-card {
+  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05);
+  border-left: 3px solid var(--gray); border-radius: 4px;
+  padding: 7px 10px; cursor: pointer; transition: all 0.2s;
+  animation: fadeIn 0.3s ease; flex-shrink: 0;
+}
+.client-card:hover {
+  border-color: rgba(0,212,255,0.2); border-left-color: inherit;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.4), 0 0 15px rgba(0,212,255,0.06);
+  transform: translateX(2px);
+}
+.client-card.response-needed {
+  border-left-color: var(--red) !important;
+  box-shadow: 0 0 8px rgba(255,51,51,0.12);
+  animation: fadeIn 0.3s ease, cardPulseRed 3s ease-in-out infinite;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cardPulseRed {
+  0%, 100% { box-shadow: 0 0 6px rgba(255,51,51,0.1); }
+  50% { box-shadow: 0 0 14px rgba(255,51,51,0.3), 0 0 30px rgba(255,51,51,0.08); }
+}
+
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5em; }
+.card-name-block { flex: 1; min-width: 0; }
+.card-name {
+  font-size: clamp(11px, 0.95vw, 18px); font-weight: 700;
+  letter-spacing: 0.05em; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-handle { font-size: clamp(9px, 0.69vw, 12px); color: var(--cyan); opacity: 0.7; }
+.card-company {
+  font-size: clamp(9px, 0.69vw, 12px); color: var(--text-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-badges { display: flex; align-items: center; gap: 0.3em; flex-shrink: 0; flex-wrap: wrap; }
+
+.status-badge {
+  display: flex; align-items: center; gap: 0.3em;
+  padding: 2px 6px; border-radius: 3px;
+  font-size: clamp(8px, 0.61vw, 11px); letter-spacing: 0.08em;
+  text-transform: uppercase; border: 1px solid; white-space: nowrap;
+}
+.status-dot-badge { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.status-badge.inquiry { color: var(--stage-inquiry); border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.06); }
+.status-badge.inquiry .status-dot-badge { background: var(--stage-inquiry); }
+.status-badge.responded { color: var(--stage-responded); border-color: rgba(255,169,77,0.3); background: rgba(255,169,77,0.06); }
+.status-badge.responded .status-dot-badge { background: var(--stage-responded); }
+.status-badge.qualifying { color: var(--stage-qualifying); border-color: rgba(255,212,59,0.3); background: rgba(255,212,59,0.06); }
+.status-badge.qualifying .status-dot-badge { background: var(--stage-qualifying); }
+.status-badge.consultation_scheduled { color: var(--stage-consultation-scheduled); border-color: rgba(105,219,124,0.3); background: rgba(105,219,124,0.06); }
+.status-badge.consultation_scheduled .status-dot-badge { background: var(--stage-consultation-scheduled); }
+.status-badge.consultation_complete { color: var(--stage-consultation-complete); border-color: rgba(56,217,169,0.3); background: rgba(56,217,169,0.06); }
+.status-badge.consultation_complete .status-dot-badge { background: var(--stage-consultation-complete); }
+.status-badge.proposal_sent { color: var(--stage-proposal-sent); border-color: rgba(77,171,247,0.3); background: rgba(77,171,247,0.06); }
+.status-badge.proposal_sent .status-dot-badge { background: var(--stage-proposal-sent); }
+.status-badge.active { color: var(--stage-active); border-color: rgba(0,255,136,0.3); background: rgba(0,255,136,0.06); }
+.status-badge.active .status-dot-badge { background: var(--stage-active); box-shadow: 0 0 6px var(--stage-active); animation: pulse-green 2s infinite; }
+.status-badge.completed { color: var(--stage-completed); border-color: rgba(116,143,252,0.3); background: rgba(116,143,252,0.06); }
+.status-badge.completed .status-dot-badge { background: var(--stage-completed); }
+
+.source-badge {
+  font-size: clamp(8px, 0.61vw, 11px); padding: 2px 5px; border-radius: 3px;
+  letter-spacing: 0.06em; border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-dim); background: rgba(255,255,255,0.03); white-space: nowrap;
+}
+.source-badge.x-dm { color: var(--cyan); border-color: rgba(0,212,255,0.2); }
+.source-badge.email { color: var(--blue); border-color: rgba(68,136,255,0.2); }
+.source-badge.existing-contact { color: var(--teal); border-color: rgba(0,191,165,0.2); }
+
+.card-mid { display: flex; align-items: center; gap: 0.6em; margin-top: 4px; flex-wrap: wrap; }
+.card-timing { font-size: clamp(9px, 0.69vw, 12px); color: var(--text-dim); }
+.card-timing span { color: var(--text); }
+
+.sla-badge {
+  font-size: clamp(8px, 0.61vw, 11px); padding: 1px 5px;
+  border-radius: 2px; letter-spacing: 0.06em; border: 1px solid;
+}
+.sla-badge.ok { color: var(--green); border-color: rgba(0,255,136,0.25); background: rgba(0,255,136,0.04); }
+.sla-badge.warn { color: var(--amber); border-color: rgba(255,184,0,0.35); background: rgba(255,184,0,0.06); }
+.sla-badge.over { color: var(--red); border-color: rgba(255,51,51,0.4); background: rgba(255,51,51,0.08); }
+
+.response-needed-row {
+  display: flex; align-items: center; gap: 0.4em; margin-top: 3px;
+  font-size: clamp(9px, 0.69vw, 12px); color: var(--red);
+  letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+}
+.rn-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--red);
+  animation: rnPulse 1s ease-in-out infinite;
+}
+@keyframes rnPulse {
+  0%, 100% { box-shadow: 0 0 4px var(--red); transform: scale(1); }
+  50% { box-shadow: 0 0 12px var(--red-glow); transform: scale(1.3); }
+}
+
+/* === Calendar Sidebar === */
+.cal-header-row {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; margin-bottom: 0.3vh;
+}
+.cal-nav { display: flex; align-items: center; gap: 0.4em; flex-shrink: 0; }
+.cal-nav-btn {
+  background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
+  color: var(--cyan); padding: 2px 6px; border-radius: 3px;
+  cursor: pointer; font-family: var(--font);
+  font-size: clamp(8px, 0.61vw, 11px); letter-spacing: 0.08em; transition: all 0.2s;
+}
+.cal-nav-btn:hover { background: rgba(0,212,255,0.15); border-color: rgba(0,212,255,0.4); }
+.cal-week-label {
+  font-size: clamp(9px, 0.72vw, 13px); color: var(--text);
+  letter-spacing: 0.1em; text-align: center; flex: 1;
+}
+
+.cal-grid-wrapper {
+  flex: 1; min-height: 0; overflow-y: auto;
+  border: 1px solid rgba(0,212,255,0.08); border-radius: 4px;
+  position: relative;
+}
+.cal-grid { display: grid; position: relative; min-height: 600px; }
+.cal-col-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg-card);
+  border-bottom: 1px solid rgba(0,212,255,0.15);
+  padding: 3px 0; text-align: center;
+  font-size: clamp(10px, 0.78vw, 13px); letter-spacing: 0.1em;
+  color: var(--text-dim); text-transform: uppercase;
+}
+.cal-col-header.today { color: var(--cyan); border-bottom-color: var(--cyan); }
+.cal-col-header-date {
+  font-size: clamp(13px, 1.1vw, 22px); font-weight: 700; color: var(--text);
+}
+.cal-col-header.today .cal-col-header-date { color: var(--cyan); }
+
+.cal-time-label {
+  grid-column: 1;
+  font-size: clamp(10px, 0.78vw, 15px); color: var(--text-dim);
+  text-align: right; padding-right: 4px; line-height: 1;
+  border-right: 1px solid rgba(0,212,255,0.06);
+}
+.cal-cell {
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  border-right: 1px solid rgba(255,255,255,0.02);
+  min-height: 66px; position: relative;
+}
+.cal-cell.hour-start { border-bottom-color: rgba(0,212,255,0.06); }
+
+.cal-event {
+  position: absolute; border-radius: 3px; padding: 4px 6px;
+  font-size: clamp(12px, 1vw, 18px); overflow: hidden;
+  cursor: pointer; pointer-events: auto; z-index: 5;
+  transition: box-shadow 0.2s; line-height: 1.4;
+}
+.cal-event:hover { z-index: 6; box-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+
+.cal-event.ycbm { background: rgba(0,212,255,0.15); border: 1px solid rgba(0,212,255,0.5); color: var(--cyan); }
+.cal-event.consulting { background: rgba(0,255,136,0.12); border: 1px solid rgba(0,255,136,0.4); color: var(--green); }
+.cal-event.personal { background: rgba(68,136,255,0.1); border: 1px solid rgba(68,136,255,0.3); color: rgba(68,136,255,0.7); }
+.cal-event.unknown { background: rgba(255,184,0,0.1); border: 1px solid rgba(255,184,0,0.3); color: var(--amber); }
+
+.cal-event-name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-event-time { font-size: 0.9em; opacity: 0.7; }
+.cal-event-badge { font-size: 1em; margin-right: 2px; }
+
+.cal-now-line {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: var(--red); z-index: 8; pointer-events: none;
+  box-shadow: 0 0 6px var(--red-glow);
+}
+.cal-now-dot {
+  position: absolute; left: -4px; top: -3px; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--red); box-shadow: 0 0 6px var(--red-glow);
+}
+
+/* === Footer Bar === */
+.footer-bar {
+  height: 28px; display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 38px; padding: 0 1.5vw;
+  border-top: 1px solid rgba(0,212,255,0.1);
+  background: linear-gradient(0deg, rgba(0,212,255,0.03) 0%, transparent 100%);
+  font-size: clamp(9px, 0.69vw, 12px); letter-spacing: 0.12em;
+  color: var(--text-dim); flex-shrink: 0;
+}
+.footer-section { display: flex; align-items: center; gap: 1em; }
+.footer-divider { opacity: 0.2; }
+
+/* === Recent Changes Bar === */
+.changelog-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(180deg, rgba(17, 24, 34, 0.95) 0%, rgba(10, 14, 20, 0.98) 100%);
+  border-top: 1px solid rgba(0, 191, 165, 0.25);
+  display: flex; align-items: center; justify-content: center;
+  gap: 2vw; padding: 0.6vh 2vw; z-index: 50;
+  cursor: pointer; transition: border-color 0.3s;
+}
+.changelog-bar:hover { border-top-color: rgba(0, 191, 165, 0.5); }
+.changelog-bar-label {
+  font-size: clamp(12px, 0.8vw, 16px); font-weight: 700;
+  letter-spacing: 0.2em; color: var(--teal); text-transform: uppercase;
+}
+.changelog-bar-sep { color: rgba(0, 191, 165, 0.3); font-size: 0.9em; }
+.changelog-bar-stat {
+  font-size: clamp(11px, 0.7vw, 14px); color: var(--text-dim); letter-spacing: 0.1em;
+}
+.changelog-bar-stat strong { font-weight: 600; }
+.changelog-bar-stat strong.count-added { color: var(--green); }
+.changelog-bar-stat strong.count-modified { color: var(--amber); }
+.changelog-bar-stat strong.count-removed { color: var(--red); }
+
+.changelog-detail {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10, 14, 20, 0.98);
+  border-top: 1px solid rgba(0, 212, 255, 0.3);
+  z-index: 51; max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  padding: 0 3vw;
+}
+.changelog-detail.expanded { max-height: 50vh; opacity: 1; padding: 2vh 3vw; overflow-y: auto; }
+.changelog-detail-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5vh;
+}
+.changelog-detail-title {
+  font-size: clamp(13px, 0.88vw, 18px); font-weight: 700;
+  letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase;
+}
+.changelog-detail-close {
+  background: none; border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--cyan); cursor: pointer; padding: 0.3em 1em;
+  font-size: clamp(11px, 0.72vw, 15px); letter-spacing: 0.15em;
+  border-radius: 3px; transition: all 0.2s;
+}
+.changelog-detail-close:hover { background: rgba(0, 212, 255, 0.1); border-color: rgba(0, 212, 255, 0.5); }
+.changelog-entry {
+  border-left: 2px solid var(--cyan); margin-bottom: 0.8vh; padding: 0.5vh 0.8vw;
+}
+.changelog-time {
+  font-size: clamp(11px, 0.72vw, 15px); color: var(--cyan);
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3vh;
+}
+.changelog-change {
+  padding: 0.2vh 0; font-size: clamp(13px, 0.88vw, 18px);
+  color: var(--text-dim); line-height: 1.4;
+}
+.changelog-change-type {
+  font-weight: 700; font-size: clamp(11px, 0.67vw, 13px);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.1em 0.5em; border: 1px solid; border-radius: 3px; margin-right: 0.5em;
+}
+.changelog-change-type.type-added { color: var(--green); border-color: rgba(0, 255, 136, 0.3); }
+.changelog-change-type.type-modified { color: var(--amber); border-color: rgba(255, 184, 0, 0.3); }
+.changelog-change-type.type-removed { color: var(--red); border-color: rgba(255, 51, 51, 0.3); }
+.changelog-item-name { color: #e4eaf0; font-weight: 600; }
+.changelog-summary { color: var(--text-dim); margin-top: 0.2vh; font-size: clamp(12px, 0.78vw, 16px); }
+
+/* === Popup Overlay === */
+.popup-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.popup-overlay.active { opacity: 1; pointer-events: auto; }
+.popup-modal {
+  background: var(--bg-card); border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 6px; padding: 2vh 2vw; max-width: 600px; width: 90vw;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 0 40px rgba(0,212,255,0.15), 0 8px 32px rgba(0,0,0,0.6);
+}
+.popup-title {
+  font-size: clamp(15px, 1.3vw, 24px); font-weight: 700;
+  color: var(--cyan); letter-spacing: 0.1em; margin-bottom: 1vh;
+  text-shadow: 0 0 10px var(--cyan-glow);
+}
+.popup-row {
+  display: flex; align-items: baseline; gap: 0.8em;
+  padding: 0.3vh 0; font-size: clamp(12px, 0.88vw, 17px);
+}
+.popup-label { color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85em; min-width: 80px; }
+.popup-value { color: var(--text); }
+.popup-notes {
+  margin-top: 1vh; padding: 0.8vh 0.8vw;
+  background: rgba(0,212,255,0.04); border-left: 2px solid rgba(0,212,255,0.3);
+  color: var(--text-dim); font-size: clamp(11px, 0.83vw, 16px); line-height: 1.6;
+}
+.popup-close {
+  display: block; margin: 1.5vh auto 0; background: none;
+  border: 1px solid rgba(0,212,255,0.3); color: var(--cyan);
+  padding: 0.4em 2em; cursor: pointer; font-family: var(--font);
+  font-size: clamp(11px, 0.78vw, 15px); letter-spacing: 0.15em;
+  border-radius: 3px; transition: all 0.2s;
+}
+.popup-close:hover { background: rgba(0,212,255,0.1); border-color: rgba(0,212,255,0.5); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700</head>display=swap" rel="stylesheet"></head>
+<body>
+<!-- Welcome Overlay (hidden by default, shown via About button) -->
+<div id="welcomeOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0);z-index:9999;display:none;align-items:center;justify-content:center;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;">
+  <div style="background:rgba(13,21,32,0.95);border:1px solid rgba(0,212,255,0.25);box-shadow:0 0 40px rgba(0,212,255,0.2);max-width:90vw;min-width:700px;max-height:80vh;overflow-y:auto;padding:2.5em 3em;position:relative;border-radius:6px;">
+    <button onclick="document.getElementById('welcomeOverlay').style.display='none'" style="position:absolute;top:14px;right:18px;background:none;border:none;color:#667788;font-size:2em;cursor:pointer;font-family:inherit;line-height:1;padding:6px 10px;z-index:10;" onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#667788'">✕</button>
+    <div style="text-align:center;margin-bottom:1.5em;">
+      <div style="font-size:1.47em;color:#00d4ff;letter-spacing:0.2em;font-weight:bold;margin-bottom:0.3em;">OpenClaw Dashboard Demo — Ben Badejo</div>
+      <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.5),transparent);"></div>
+    </div>
+    <div style="color:#c8d6e5;font-size:0.85em;line-height:1.8;margin-bottom:1.2em;">
+      <p style="margin-bottom:0.8em;">You're viewing a live demo of a fully-functional four-screen unified operations dashboard, built by Ben Badejo using OpenClaw.</p>
+      <p style="margin-bottom:0.8em;">In a real deployment, each screen is continuously updated by live calls to Google Calendar, Gmail, and platform data — keeping you informed in real time without lifting a finger.</p>
+      <p style="margin-bottom:1em;">These dashboards are included in Ben's full, end-to-end OpenClaw setup offering. Ben also offers one-on-one consultations, hourly trainings, custom project development with direct (not outsourced) remote implementation, platform security guidance, and ongoing maintenance for clients.</p>
+      <div style="text-align:center;">
+        <a href="https://benbadejo.youcanbook.me" target="_blank" style="display:inline-block;background:#ff3333;color:#fff;font-weight:bold;font-family:inherit;font-size:1em;letter-spacing:0.12em;padding:14px 40px;border-radius:5px;text-decoration:none;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ff5555';this.style.boxShadow='0 0 20px rgba(255,51,51,0.5)'" onmouseout="this.style.background='#ff3333';this.style.boxShadow='none'">BOOK A SESSION WITH BEN →</a>
+      </div>
+    </div>
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),transparent);margin:1.5em 0;"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1em;">
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">AGENDA</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Your personal command center — a real-time operational status board showing active tasks by urgency, upcoming calendar events, items needing review, and a live changelog of recent activity.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">CRM</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">A full client pipeline management system tracking every prospect through stages from inquiry to active engagement, with calendar view, invoice tracking, and response-needed alerts.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">PROJECT VIEW</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">A bird's-eye perspective across every domain of your work — consulting, networking, personal projects, and more — organized into categories with live status tracking and social media intelligence.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">SYSTEM MONITOR</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Mission control for your OpenClaw deployment — active agents, loaded skills, scheduled operations, live token usage, and a real-time error log.</div>
+      </div>
+    </div>
+    <div style="background:rgba(0,212,255,0.05);border-radius:4px;padding:1.2em 1.5em;margin-top:1.5em;">
+      <div style="font-size:0.7em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">NAVIGATING THE DASHBOARDS</div>
+      <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Use ← → arrow keys, middle click, or swipe left/right on a touchpad to move between dashboards. Click the title name in the top-left corner to advance to the next dashboard.</div>
+    </div>
+  </div>
+</div>
+
+<div class="scanlines"></div>
+<div class="hud-frame">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+</div>
+
+<!-- Top Bar -->
+<header class="top-bar">
+  <div class="top-left">
+    <a href="../project-view/" class="title title-link" target="_parent">CRM <span class="nav-arrow">→</span></a>
+    <div class="subtitle">PIPELINE COMMAND CENTER</div>
+  </div>
+  <div class="top-center">
+    <span class="status-dot"></span>
+    <span class="status-text">SYSTEM OPERATIONAL</span>
+    <span class="sep">|</span>
+    <span id="lastSyncLabel">LAST SYNC: 04:25:12</span>
+    <span class="sep">|</span>
+    <button class="invoices-btn" onclick="document.getElementById('invoicesOverlay').style.display='flex'">
+      INVOICES
+      <span class="invoices-badge">2</span>
+    </button>
+  </div>
+  <div class="top-right">
+    <div class="datedisp" id="dateDisplay">--- -- ----</div>
+    <div class="clock" id="clockDisplay">--:--:--</div>
+    <button class="refresh-btn" id="refreshAll" title="REFRESH ALL" onclick="this.classList.add('spinning');setTimeout(()=>this.classList.remove('spinning'),1000)">⟳</button>
+  </div>
+</header>
+
+<!-- Main Area -->
+<div class="main-area">
+
+  <!-- LEFT COLUMN -->
+  <div class="left-column">
+
+    <!-- Pipeline Sidebar -->
+    <div class="pipeline-sidebar">
+      <div class="section-header">
+        <div class="header-line"></div>
+        <div class="header-text">PIPELINE</div>
+        <div class="header-count">14</div>
+        <div class="header-line"></div>
+      </div>
+      <div class="pipeline-list" id="pipelineList"></div>
+      <div class="pipeline-summary">
+        <div class="ps-row"><span>Total</span><span class="ps-val highlight">14</span></div>
+        <div class="ps-row"><span>Active</span><span class="ps-val" style="color:var(--green)">3</span></div>
+        <div class="ps-row"><span>Conv%</span><span class="ps-val highlight">36%</span></div>
+        <div class="ps-row"><span>⚠ Response</span><span class="ps-val danger">2</span></div>
+      </div>
+    </div>
+
+    <!-- Client List -->
+    <div class="client-area">
+      <div class="section-header">
+        <div class="header-line"></div>
+        <div class="header-text">CLIENTS</div>
+        <div class="header-count">14</div>
+        <div class="header-line"></div>
+        <button class="header-btn">➕ ADD CLIENT</button>
+      </div>
+      <div class="filter-indicator" id="filterIndicator">
+        <span id="filterLabel">FILTER: ALL</span>
+      </div>
+      <div class="client-list-wrapper" id="clientList"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: Calendar -->
+  <div class="right-column">
+    <div class="section-header">
+      <div class="header-line"></div>
+      <div class="header-text">CALENDAR</div>
+      <div class="header-line"></div>
+    </div>
+    <div class="cal-header-row">
+      <div class="cal-nav">
+        <button class="cal-nav-btn">◀</button>
+        <button class="cal-nav-btn">TODAY</button>
+        <button class="cal-nav-btn">▶</button>
+      </div>
+      <div class="cal-week-label" id="calWeekLabel">—</div>
+    </div>
+    <div class="cal-grid-wrapper" id="calGridWrapper">
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup Overlay -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-modal" id="popupModal"></div>
+</div>
+
+<!-- Recent Changes Bar -->
+<footer class="changelog-bar" id="changelogBar"></footer>
+
+<!-- CTA Buttons -->
+<div id="ctaButtons" style="position:fixed;bottom:36px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 0;z-index:500;pointer-events:none;">
+  <button onclick="document.getElementById('welcomeOverlay').style.display='flex'" style="pointer-events:auto;background:#00aa44;color:#fff;font-weight:bold;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;font-size:clamp(10px, 0.85vw, 17px);letter-spacing:0.12em;padding:clamp(8px, 0.6vw, 12px) clamp(20px, 1.5vw, 31px);border-radius:5px;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='#22c55e';this.style.boxShadow='0 0 16px rgba(34,197,94,0.5)'" onmouseout="this.style.background='#00aa44';this.style.boxShadow='none'">ABOUT THIS DEMO ℹ</button>
+  <a href="https://benbadejo.youcanbook.me" target="_blank" style="pointer-events:auto;background:#ff3333;color:#fff;font-weight:bold;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;font-size:clamp(10px, 0.85vw, 17px);letter-spacing:0.12em;padding:clamp(8px, 0.6vw, 12px) clamp(20px, 1.5vw, 31px);border-radius:5px;text-decoration:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='#ff5555';this.style.boxShadow='0 0 16px rgba(255,51,51,0.5)'" onmouseout="this.style.background='#ff3333';this.style.boxShadow='none'">BOOK A SESSION WITH BEN →</a>
+</div>
+
+<!-- Footer -->
+<footer class="footer-bar">
+  <div class="footer-section">
+    <span>UPDATED: <span id="footerUpdated">Feb 26, 2026</span></span>
+    <span class="footer-divider">|</span>
+    <span>CLIENTS: 14</span>
+  </div>
+  <div class="footer-section">
+    <span>DEMO MODE</span>
+  </div>
+</footer>
+
+<!-- Recent Changes Detail Panel -->
+<div class="changelog-detail" id="changelogDetail">
+  <div class="changelog-detail-header">
+    <span class="changelog-detail-title">RECENT CHANGES — LAST 24 HOURS</span>
+    <button class="changelog-detail-close" id="closeChangelog">✕ CLOSE</button>
+  </div>
+  <div class="changelog-entry">
+    <div class="changelog-time">03:15 IST</div>
+    <div class="changelog-change">
+      <span class="changelog-change-type type-modified">MODIFIED</span>
+      <span class="changelog-item-name">Nexus Dynamics</span>
+      <div class="changelog-summary">Status changed from Qualifying → Consultation Scheduled. Marcus Chen confirmed call for Thu 10:00 AM.</div>
+    </div>
+  </div>
+  <div class="changelog-entry">
+    <div class="changelog-time">01:42 IST</div>
+    <div class="changelog-change">
+      <span class="changelog-change-type type-added">ADDED</span>
+      <span class="changelog-item-name">Nova Systems</span>
+      <div class="changelog-summary">New inquiry via X DM from James Mitchell, CTO. Interested in infrastructure consulting.</div>
+    </div>
+  </div>
+  <div class="changelog-entry">
+    <div class="changelog-time">00:30 IST</div>
+    <div class="changelog-change">
+      <span class="changelog-change-type type-modified">MODIFIED</span>
+      <span class="changelog-item-name">Stellar Ventures</span>
+      <div class="changelog-summary">Proposal sent to David Okonkwo. $18,000 strategy engagement, 6-week timeline.</div>
+    </div>
+  </div>
+  <div class="changelog-entry">
+    <div class="changelog-time">22:10 IST</div>
+    <div class="changelog-change">
+      <span class="changelog-change-type type-modified">MODIFIED</span>
+      <span class="changelog-item-name">Pinnacle Solutions</span>
+      <div class="changelog-summary">Consultation complete. Elena Rodriguez approved next steps, moving to proposal phase.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CRM DASHBOARD — Static Demo
+   All data hardcoded. No API calls.
+   ============================================================ */
+
+const TZ = 'Asia/Jerusalem';
+
+const PIPELINE_STAGES = [
+  { id: 'inquiry', label: 'Inquiry', color: '#ff6b6b', icon: '📩' },
+  { id: 'responded', label: 'Responded', color: '#ffa94d', icon: '💬' },
+  { id: 'qualifying', label: 'Qualifying', color: '#ffd43b', icon: '🔍' },
+  { id: 'consultation_scheduled', label: 'Consult Scheduled', color: '#69db7c', icon: '📅' },
+  { id: 'consultation_complete', label: 'Consult Complete', color: '#38d9a9', icon: '✅' },
+  { id: 'proposal_sent', label: 'Proposal Sent', color: '#4dabf7', icon: '📋' },
+  { id: 'active', label: 'Active Client', color: '#00ff88', icon: '🟢' },
+  { id: 'completed', label: 'Completed', color: '#748ffc', icon: '🏁' },
+];
+
+// Helper to get relative dates
+function daysAgo(n) {
+  const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString();
+}
+
+const CLIENTS = [
+  { id:'c1', name:'Nova Systems', contact:'James Mitchell', company:'Nova Systems', handle:'@nova_james', source:'x-dm', status:'inquiry', inquiryDate: daysAgo(0), lastContactDate: daysAgo(0), responseNeeded: true, notes:'CTO interested in infrastructure consulting. Reached out via X DM.' },
+  { id:'c2', name:'Emerald Consulting', contact:'Amanda Foster', company:'Emerald Consulting Group', source:'email', status:'inquiry', inquiryDate: daysAgo(1), lastContactDate: daysAgo(1), responseNeeded: true, notes:'Email inquiry about organizational restructuring advice.' },
+  { id:'c3', name:'Horizon Tech', contact:'Robert Kim', company:'Horizon Technologies', handle:'@horizonrk', source:'x-dm', status:'responded', inquiryDate: daysAgo(3), lastContactDate: daysAgo(1), responseNeeded: false, notes:'Sent initial info packet. Awaiting follow-up.' },
+  { id:'c4', name:'Atlas Digital', contact:'Lisa Thompson', company:'Atlas Digital Media', source:'email', status:'responded', inquiryDate: daysAgo(5), lastContactDate: daysAgo(2), responseNeeded: false, notes:'Interested in digital strategy consultation. Sent availability.' },
+  { id:'c5', name:'Nexus Dynamics', contact:'Marcus Chen', company:'Nexus Dynamics Inc.', source:'existing-contact', status:'consultation_scheduled', inquiryDate: daysAgo(8), lastContactDate: daysAgo(0), responseNeeded: false, notes:'Call confirmed for Thu 10:00 AM. Wants tech stack review.' },
+  { id:'c6', name:'Vanguard Industries', contact:'Michael Park', company:'Vanguard Industries LLC', source:'email', status:'qualifying', inquiryDate: daysAgo(6), lastContactDate: daysAgo(2), responseNeeded: false, notes:'Manufacturing sector. Evaluating scope of engagement.' },
+  { id:'c7', name:'Pinnacle Solutions', contact:'Elena Rodriguez', company:'Pinnacle Solutions Corp', source:'existing-contact', status:'consultation_complete', inquiryDate: daysAgo(14), lastContactDate: daysAgo(1), responseNeeded: false, notes:'Consultation complete. Elena approved next steps. Moving to proposal.' },
+  { id:'c8', name:'Stellar Ventures', contact:'David Okonkwo', company:'Stellar Ventures Capital', source:'email', status:'proposal_sent', inquiryDate: daysAgo(18), lastContactDate: daysAgo(0), responseNeeded: false, notes:'Proposal sent: $18K strategy engagement, 6-week timeline.' },
+  { id:'c9', name:'Meridian Health', contact:'Sarah Williams', company:'Meridian Health Systems', handle:'@meridianhealth', source:'x-dm', status:'proposal_sent', inquiryDate: daysAgo(20), lastContactDate: daysAgo(3), responseNeeded: false, notes:'Healthcare compliance consulting. Proposal under review by legal.' },
+  { id:'c10', name:'Acme Corp', contact:'Jane Smith', company:'Acme Corporation', source:'existing-contact', status:'active', inquiryDate: daysAgo(45), lastContactDate: daysAgo(2), responseNeeded: false, rate: 250, notes:'Ongoing engagement: operational efficiency. Weekly check-ins.' },
+  { id:'c11', name:'Pinnacle Solutions', contact:'Elena Rodriguez', company:'Pinnacle Solutions Corp', source:'existing-contact', status:'active', inquiryDate: daysAgo(30), lastContactDate: daysAgo(1), responseNeeded: false, rate: 200, notes:'Phase 2 of process optimization. Bi-weekly deliverables.' },
+  { id:'c12', name:'Atlas Digital', contact:'Lisa Thompson', company:'Atlas Digital Media', source:'email', status:'active', inquiryDate: daysAgo(60), lastContactDate: daysAgo(3), responseNeeded: false, rate: 275, notes:'Content strategy & analytics. Monthly retainer.' },
+  { id:'c13', name:'Horizon Tech', contact:'Robert Kim', company:'Horizon Technologies', source:'existing-contact', status:'completed', inquiryDate: daysAgo(90), lastContactDate: daysAgo(15), responseNeeded: false, notes:'Cloud migration project completed. Final report delivered.' },
+  { id:'c14', name:'Vanguard Industries', contact:'Michael Park', company:'Vanguard Industries LLC', source:'email', status:'completed', inquiryDate: daysAgo(120), lastContactDate: daysAgo(30), responseNeeded: false, notes:'Supply chain audit completed. Recommendations implemented.' },
+];
+
+function esc(s) { if (!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function daysSince(ds) { if (!ds) return null; const d = new Date(ds); if (isNaN(d)) return null; return Math.max(0, Math.floor((Date.now() - d) / 86400000)); }
+function getStageInfo(id) { return PIPELINE_STAGES.find(s => s.id === id) || { id, label: id, color: '#555', icon: '?' }; }
+function getSourceLabel(src) {
+  switch(src) { case 'x-dm': return '𝕏 DM'; case 'email': return '✉ EMAIL'; case 'existing-contact': return '★ EXISTING'; default: return (src||'?').toUpperCase(); }
+}
+
+/* === Popup === */
+function showPopup(html) {
+  var modal = document.getElementById('popupModal');
+  modal.innerHTML = html;
+  document.getElementById('popupOverlay').classList.add('active');
+}
+function hidePopup() { document.getElementById('popupOverlay').classList.remove('active'); }
+document.getElementById('popupOverlay').addEventListener('click', function(e) { if (e.target === this) hidePopup(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hidePopup(); });
+
+function showClientPopup(client) {
+  var stage = getStageInfo(client.status);
+  var inqDays = daysSince(client.inquiryDate);
+  var contactDays = daysSince(client.lastContactDate);
+  var html = '<div class="popup-title">' + esc(client.name) + '</div>';
+  html += '<div class="popup-row"><span class="popup-label">Contact</span><span class="popup-value">' + esc(client.contact) + '</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Company</span><span class="popup-value">' + esc(client.company) + '</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Status</span><span class="popup-value" style="color:' + stage.color + '">' + stage.icon + ' ' + esc(stage.label) + '</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Source</span><span class="popup-value">' + getSourceLabel(client.source) + '</span></div>';
+  if (client.handle) html += '<div class="popup-row"><span class="popup-label">Handle</span><span class="popup-value" style="color:var(--cyan)">' + esc(client.handle) + '</span></div>';
+  if (client.rate) html += '<div class="popup-row"><span class="popup-label">Rate</span><span class="popup-value" style="color:var(--green)">$' + client.rate + '/hr</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Inquiry</span><span class="popup-value">' + (inqDays !== null ? inqDays + ' days ago' : '—') + '</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Last Contact</span><span class="popup-value">' + (contactDays !== null ? contactDays + ' days ago' : '—') + '</span></div>';
+  if (client.responseNeeded) html += '<div class="popup-row"><span class="popup-label">⚠️</span><span class="popup-value" style="color:var(--red);font-weight:700">RESPONSE NEEDED</span></div>';
+  if (client.notes) html += '<div class="popup-notes">' + esc(client.notes) + '</div>';
+  html += '<button class="popup-close" onclick="hidePopup()">CLOSE</button>';
+  showPopup(html);
+}
+
+function showCalendarEventPopup(ev) {
+  var fmtT = function(h,m) { var h12 = h>12?h-12:(h===0?12:h); return h12 + ':' + String(m).padStart(2,'0') + (h>=12?'PM':'AM'); };
+  var html = '<div class="popup-title">' + esc(ev.title) + '</div>';
+  html += '<div class="popup-row"><span class="popup-label">Time</span><span class="popup-value">' + fmtT(ev.startH, ev.startM) + ' – ' + fmtT(ev.endH, ev.endM) + '</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Day</span><span class="popup-value">' + (ev.day === 0 ? 'Today' : 'Tomorrow') + '</span></div>';
+  html += '<div class="popup-row"><span class="popup-label">Type</span><span class="popup-value">' + esc(ev.type) + '</span></div>';
+  html += '<button class="popup-close" onclick="hidePopup()">CLOSE</button>';
+  showPopup(html);
+}
+
+/* === Clock === */
+function updateClock() {
+  const now = new Date();
+  const opts = { timeZone: TZ, hour12: false };
+  document.getElementById('clockDisplay').textContent = now.toLocaleTimeString('en-IL', { ...opts, hour:'2-digit', minute:'2-digit', second:'2-digit' }) + ' IST';
+  document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-IL', { ...opts, weekday:'short', year:'numeric', month:'short', day:'2-digit' }).toUpperCase();
+}
+setInterval(updateClock, 1000); updateClock();
+
+// Demo: lastSync always shows now - 25 min
+function updateDemoSync() {
+  var now = new Date(Date.now() - 25 * 60000);
+  var t = now.toLocaleTimeString('en-IL', { timeZone: TZ, hour12: false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  document.getElementById('lastSyncLabel').textContent = 'LAST SYNC: ' + t;
+}
+setInterval(updateDemoSync, 60000); updateDemoSync();
+
+/* === Render Pipeline === */
+let activeFilter = null;
+
+function renderPipeline() {
+  const counts = {};
+  PIPELINE_STAGES.forEach(s => counts[s.id] = 0);
+  CLIENTS.forEach(c => { if (counts[c.status] !== undefined) counts[c.status]++; });
+  const maxCount = Math.max(1, ...Object.values(counts));
+  const listEl = document.getElementById('pipelineList');
+  listEl.innerHTML = '';
+  PIPELINE_STAGES.forEach(stage => {
+    const count = counts[stage.id] || 0;
+    const pct = Math.round((count / maxCount) * 100);
+    const isEmpty = count === 0;
+    const isActive = activeFilter === stage.id;
+    const row = document.createElement('div');
+    row.className = 'stage-row' + (isEmpty ? ' empty' : '') + (isActive ? ' active-filter' : '');
+    row.innerHTML = `<div class="stage-meta"><div class="stage-label-row"><span class="stage-icon">${esc(stage.icon)}</span><span class="stage-name">${esc(stage.label)}</span></div><span class="stage-count" style="color:${isEmpty?'var(--gray)':stage.color}">${count}</span></div><div class="stage-bar-track"><div class="stage-bar-fill" style="width:${pct}%;background:${stage.color};opacity:${isEmpty?0.2:0.7}"></div></div>`;
+    if (!isEmpty) row.addEventListener('click', () => {
+      activeFilter = activeFilter === stage.id ? null : stage.id;
+      renderPipeline();
+      renderClients();
+    });
+    listEl.appendChild(row);
+  });
+}
+
+/* === Render Clients === */
+function renderClients() {
+  const source = activeFilter ? CLIENTS.filter(c => c.status === activeFilter) : CLIENTS;
+  const sorted = [...source].sort((a,b) => {
+    if (a.responseNeeded && !b.responseNeeded) return -1;
+    if (!a.responseNeeded && b.responseNeeded) return 1;
+    return new Date(b.lastContactDate) - new Date(a.lastContactDate);
+  });
+  const listEl = document.getElementById('clientList');
+  listEl.innerHTML = '';
+  sorted.forEach(client => {
+    const stage = getStageInfo(client.status);
+    const srcClass = (client.source||'').replace(/[^a-z-]/g,'');
+    const inqDays = daysSince(client.inquiryDate);
+    const contactDays = daysSince(client.lastContactDate);
+    const handleHtml = client.handle ? `<div class="card-handle">${esc(client.handle)}</div>` : '';
+    const companyHtml = client.company ? `<div class="card-company">${esc(client.company)}</div>` : '';
+    const rnHtml = client.responseNeeded ? `<div class="response-needed-row"><div class="rn-dot"></div>⚠ RESPONSE NEEDED</div>` : '';
+    const slaHtml = client.responseNeeded ? `<span class="sla-badge over">SLA OVERDUE</span>` : (contactDays > 5 ? `<span class="sla-badge warn">SLA ${Math.min(99, Math.round(contactDays/7*100))}%</span>` : '');
+    const card = document.createElement('div');
+    card.className = 'client-card' + (client.responseNeeded ? ' response-needed' : '');
+    card.style.borderLeftColor = stage.color;
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-name-block"><div class="card-name">${esc(client.name)}</div>${handleHtml}${companyHtml}</div>
+        <div class="card-badges"><span class="source-badge ${srcClass}">${getSourceLabel(client.source)}</span><span class="status-badge ${client.status}"><span class="status-dot-badge"></span>${esc(stage.label)}</span></div>
+      </div>
+      <div class="card-mid">
+        <span class="card-timing">INQ: <span>${inqDays !== null ? inqDays + 'd' : '—'}</span></span>
+        <span class="card-timing">LAST: <span>${contactDays !== null ? contactDays + 'd' : '—'}</span></span>
+        ${slaHtml}
+      </div>
+      ${rnHtml}`;
+    card.addEventListener('click', (function(c) { return function() { showClientPopup(c); }; })(client));
+    listEl.appendChild(card);
+  });
+}
+
+/* === Calendar === */
+function renderCalendar() {
+  const now = new Date();
+  const today = new Date(now); today.setHours(0,0,0,0);
+  const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
+  const days = [today, tomorrow];
+  const dayNames = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+  // Week label
+  const opts = {month:'short', day:'numeric'};
+  document.getElementById('calWeekLabel').textContent =
+    `${today.toLocaleDateString('en-US',opts)} – ${tomorrow.toLocaleDateString('en-US',opts)}, ${tomorrow.getFullYear()}`;
+
+  const VISIBLE_HOURS = [0,1,2,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+  const SLOT_HEIGHT = 66;
+  const numSlots = VISIBLE_HOURS.length * 2;
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  grid.style.gridTemplateColumns = `36px repeat(2, 1fr)`;
+  grid.style.gridTemplateRows = `auto repeat(${numSlots}, ${SLOT_HEIGHT}px)`;
+
+  // Corner
+  const corner = document.createElement('div');
+  corner.className = 'cal-col-header'; corner.style.gridColumn='1'; corner.style.gridRow='1';
+  grid.appendChild(corner);
+
+  // Day headers
+  days.forEach((d,i) => {
+    const h = document.createElement('div');
+    const isToday = d.getDate() === now.getDate() && d.getMonth() === now.getMonth();
+    h.className = 'cal-col-header' + (isToday ? ' today' : '');
+    h.style.gridColumn = String(i+2); h.style.gridRow = '1';
+    h.innerHTML = `<div>${dayNames[d.getDay()]}</div><div class="cal-col-header-date">${d.getDate()}</div>`;
+    grid.appendChild(h);
+  });
+
+  // Time slots
+  for (let s = 0; s < numSlots; s++) {
+    const hour = VISIBLE_HOURS[Math.floor(s/2)];
+    const min = (s%2)*30;
+    const row = s+2;
+    if (s%2===0) {
+      const lbl = document.createElement('div');
+      lbl.className = 'cal-time-label'; lbl.style.gridColumn='1'; lbl.style.gridRow = `${row} / span 2`;
+      const h12 = hour > 12 ? hour-12 : (hour === 0 ? 12 : hour);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      lbl.textContent = `${h12}${ampm}`;
+      grid.appendChild(lbl);
+    }
+    days.forEach((d,i) => {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell' + (min===0?' hour-start':'');
+      cell.style.gridColumn = String(i+2); cell.style.gridRow = String(row);
+      grid.appendChild(cell);
+    });
+  }
+
+  // Fake events
+  const events = [
+    { title: 'Nexus Dynamics — Consultation', day: 0, startH: 10, startM: 0, endH: 11, endM: 0, type: 'ycbm' },
+    { title: 'Acme Corp — Weekly Check-in', day: 0, startH: 14, startM: 0, endH: 14, endM: 30, type: 'consulting' },
+    { title: 'Meridian Health — Proposal Review', day: 0, startH: 16, startM: 0, endH: 17, endM: 0, type: 'consulting' },
+    { title: 'Atlas Digital — Analytics Review', day: 1, startH: 11, startM: 0, endH: 12, endM: 0, type: 'consulting' },
+    { title: 'Stellar Ventures — Follow-up Call', day: 1, startH: 13, startM: 30, endH: 14, endM: 0, type: 'ycbm' },
+    { title: 'Pinnacle Solutions — Deliverable Review', day: 1, startH: 15, startM: 0, endH: 16, endM: 0, type: 'consulting' },
+    { title: 'Emerald Consulting — Intro Call', day: 1, startH: 17, startM: 0, endH: 17, endM: 30, type: 'ycbm' },
+  ];
+
+  function hourToSlot(h, m) {
+    const idx = VISIBLE_HOURS.indexOf(h);
+    if (idx < 0) return -1;
+    return idx * 2 + m / 30;
+  }
+
+  requestAnimationFrame(() => {
+    const headers = grid.querySelectorAll('.cal-col-header');
+    if (headers.length < 2) return;
+    const headerTop = headers[1].offsetTop + headers[1].offsetHeight;
+    const colPositions = [];
+    for (let i = 1; i < headers.length; i++) {
+      colPositions.push({ left: headers[i].offsetLeft, width: headers[i].offsetWidth });
+    }
+
+    events.forEach(ev => {
+      if (ev.day >= colPositions.length) return;
+      const colPos = colPositions[ev.day];
+      const startSlot = hourToSlot(ev.startH, ev.startM);
+      const endSlot = hourToSlot(ev.endH, ev.endM);
+      if (startSlot < 0 || endSlot < 0) return;
+      const top = headerTop + startSlot * SLOT_HEIGHT;
+      const height = Math.max(SLOT_HEIGHT, (endSlot - startSlot) * SLOT_HEIGHT);
+      const badges = { ycbm: '📅', consulting: '💼', personal: '🔵' };
+      const div = document.createElement('div');
+      div.className = 'cal-event ' + ev.type;
+      div.style.cssText = `position:absolute;top:${top}px;height:${height}px;left:${colPos.left+1}px;width:${colPos.width-2}px;`;
+      const fmtT = (h,m) => { const h12 = h>12?h-12:(h===0?12:h); return `${h12}:${String(m).padStart(2,'0')}${h>=12?'p':'a'}`; };
+      div.innerHTML = `<div class="cal-event-name"><span class="cal-event-badge">${badges[ev.type]||'❓'}</span>${esc(ev.title)}</div>${height > 22 ? `<div class="cal-event-time">${fmtT(ev.startH,ev.startM)}–${fmtT(ev.endH,ev.endM)}</div>` : ''}`;
+      div.addEventListener('click', (function(e) { return function() { showCalendarEventPopup(e); }; })(ev));
+      grid.appendChild(div);
+    });
+
+    // Now line
+    const h = now.getHours(), m = now.getMinutes();
+    const nowSlot = hourToSlot(h, m);
+    if (nowSlot >= 0) {
+      const top = headerTop + nowSlot * SLOT_HEIGHT;
+      const firstCol = headers[1];
+      const lastCol = headers[headers.length-1];
+      const lineLeft = firstCol.offsetLeft;
+      const lineRight = grid.offsetWidth - (lastCol.offsetLeft + lastCol.offsetWidth);
+      const line = document.createElement('div');
+      line.className = 'cal-now-line';
+      line.style.cssText = `position:absolute;top:${top}px;left:${lineLeft}px;right:${lineRight}px;`;
+      line.innerHTML = '<div class="cal-now-dot"></div>';
+      grid.appendChild(line);
+    }
+  });
+
+  // Scroll to ~10 AM area
+  setTimeout(() => {
+    const wrapper = document.getElementById('calGridWrapper');
+    if (wrapper) wrapper.scrollTop = Math.max(0, VISIBLE_HOURS.indexOf(12)) * 2 * SLOT_HEIGHT;
+  }, 100);
+}
+
+/* === Recent Changes Bar === */
+function renderChangelog() {
+  const bar = document.getElementById('changelogBar');
+  bar.innerHTML = `
+    <span class="changelog-bar-label">Recent Changes</span>
+    <span class="changelog-bar-sep">|</span>
+    <span class="changelog-bar-stat"><strong class="count-added">Added:</strong> 1</span>
+    <span class="changelog-bar-sep">·</span>
+    <span class="changelog-bar-stat"><strong class="count-modified">Modified:</strong> 3</span>
+    <span class="changelog-bar-sep">·</span>
+    <span class="changelog-bar-stat"><strong class="count-removed">Removed:</strong> 0</span>
+  `;
+  bar.onclick = () => document.getElementById('changelogDetail').classList.toggle('expanded');
+  document.getElementById('closeChangelog').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('changelogDetail').classList.remove('expanded');
+  });
+  document.addEventListener('click', (e) => {
+    const detail = document.getElementById('changelogDetail');
+    const bar = document.getElementById('changelogBar');
+    if (detail.classList.contains('expanded') && !detail.contains(e.target) && !bar.contains(e.target)) {
+      detail.classList.remove('expanded');
+    }
+  });
+}
+
+/* === Init === */
+renderPipeline();
+renderClients();
+renderCalendar();
+renderChangelog();
+</script>
+<script>
+(function() {
+  var DASHBOARDS = ['../agenda/', './', '../project-view/', '../system-monitor/'];
+  var ci = 1; // CRM
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight') (window.parent || window).location.href = DASHBOARDS[(ci + 1) % DASHBOARDS.length];
+    else if (e.key === 'ArrowLeft') (window.parent || window).location.href = DASHBOARDS[(ci - 1 + DASHBOARDS.length) % DASHBOARDS.length];
+  });
+  // Two-finger swipe detection
+  var swipeAccumX = 0, swipeTimeout = null, swipeFired = false;
+  var SWIPE_THRESHOLD = 60;
+  document.addEventListener('wheel', function(e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 3) {
+      if (swipeFired) return;
+      swipeAccumX += e.deltaX;
+      clearTimeout(swipeTimeout);
+      swipeTimeout = setTimeout(function() { swipeAccumX = 0; swipeFired = false; }, 500);
+      if (swipeAccumX > SWIPE_THRESHOLD) { swipeFired = true; (window.parent || window).location.href = DASHBOARDS[(ci + 1) % DASHBOARDS.length]; }
+      else if (swipeAccumX < -SWIPE_THRESHOLD) { swipeFired = true; (window.parent || window).location.href = DASHBOARDS[(ci - 1 + DASHBOARDS.length) % DASHBOARDS.length]; }
+    }
+  }, { passive: true });
+  // Middle-click
+  document.addEventListener('mousedown', function(e) {
+    if (e.button === 1) { e.preventDefault(); (window.parent || window).location.href = DASHBOARDS[(ci + 1) % DASHBOARDS.length]; }
+  });
+  // Touch swipe
+  var startX = 0;
+  document.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) (window.parent || window).location.href = DASHBOARDS[(ci + 1) % DASHBOARDS.length];
+      else (window.parent || window).location.href = DASHBOARDS[(ci - 1 + DASHBOARDS.length) % DASHBOARDS.length];
+    }
+  }, { passive: true });
+})();
+</script>
+
+<script>document.getElementById('welcomeOverlay').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});</script>
+
+<div id="invoicesOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#111822;border:1px solid var(--cyan,#00d4ff);border-radius:8px;max-width:600px;width:90%;padding:30px;position:relative;box-shadow:0 0 40px rgba(0,212,255,0.2)">
+    <button onclick="document.getElementById('invoicesOverlay').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;opacity:0.7">✕</button>
+    <h2 style="color:#00d4ff;letter-spacing:0.3em;font-size:14px;margin:0 0 24px 0;font-weight:600">INVOICES</h2>
+    <div style="border-left:3px solid #ff4444;background:rgba(255,68,68,0.05);padding:14px 16px;margin-bottom:14px;border-radius:0 6px 6px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="color:#ccc;font-size:12px;letter-spacing:0.1em">#INV-2026-001</span>
+        <span style="color:#ff4444;font-size:11px;font-weight:700;letter-spacing:0.1em">OVERDUE</span>
+      </div>
+      <div style="color:#fff;font-size:15px;font-weight:600;margin-bottom:4px">Acme Corporation</div>
+      <div style="color:#aaa;font-size:12px;margin-bottom:4px">Monthly retainer — January 2026</div>
+      <div style="display:flex;justify-content:space-between;color:#ccc;font-size:13px">
+        <span>$2,750.00</span><span>Due: Feb 20, 2026</span>
+      </div>
+    </div>
+    <div style="border-left:3px solid #ffaa00;background:rgba(255,170,0,0.05);padding:14px 16px;margin-bottom:20px;border-radius:0 6px 6px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="color:#ccc;font-size:12px;letter-spacing:0.1em">#INV-2026-002</span>
+        <span style="color:#ffaa00;font-size:11px;font-weight:700;letter-spacing:0.1em">PENDING</span>
+      </div>
+      <div style="color:#fff;font-size:15px;font-weight:600;margin-bottom:4px">Pinnacle Solutions Corp</div>
+      <div style="color:#aaa;font-size:12px;margin-bottom:4px">Process optimization — Phase 2 milestone</div>
+      <div style="display:flex;justify-content:space-between;color:#ccc;font-size:13px">
+        <span>$1,200.00</span><span>Due: Mar 1, 2026</span>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:14px;display:flex;justify-content:space-between;color:#fff;font-size:14px">
+      <span style="color:#aaa;letter-spacing:0.1em;font-size:12px">TOTAL OUTSTANDING</span>
+      <span style="font-weight:700">$3,950.00</span>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

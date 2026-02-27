@@ -1,0 +1,339 @@
+{
+  "lastUpdated": "2026-02-25T06:30:00+02:00",
+  "categories": [
+    {
+      "id": "urgent",
+      "name": "🔴 Urgent / Time-Sensitive",
+      "items": [
+        {
+          "id": "meridian-q1-proposal-deadline",
+          "title": "Meridian Analytics — Q1 Proposal Deadline",
+          "status": "action-needed",
+          "deadline": "2026-02-25T17:00:00+02:00",
+          "description": "Final proposal for Meridian's Q1 brand strategy engagement due by end of day. Pricing sheet needs sign-off from Marcus Rivera before submission.",
+          "lastUpdated": "2026-02-25T06:15:00+02:00",
+          "tags": ["client-work", "proposals"]
+        },
+        {
+          "id": "techbridge-campaign-launch",
+          "title": "TechBridge Solutions — Campaign Launch Prep",
+          "status": "action-needed",
+          "deadline": "2026-02-26T09:00:00+02:00",
+          "description": "LinkedIn + Google Ads campaign going live tomorrow morning. Need to approve final creatives and confirm audience segments with their team.",
+          "lastUpdated": "2026-02-24T22:10:00+02:00",
+          "tags": ["client-work", "marketing", "paid-ads"]
+        },
+        {
+          "id": "cloudnine-urgent-response",
+          "title": "CloudNine Ventures — Urgent Investor Deck Feedback",
+          "status": "action-needed",
+          "deadline": "2026-02-25T14:00:00+02:00",
+          "description": "CEO Priya Sharma needs feedback on revised investor deck before their 4 PM board meeting. Focus on messaging and market positioning slides.",
+          "lastUpdated": "2026-02-25T05:45:00+02:00",
+          "tags": ["client-work", "strategy"]
+        },
+        {
+          "id": "dataflow-billing-discrepancy",
+          "title": "DataFlow Inc — Billing Discrepancy Resolution",
+          "status": "action-needed",
+          "deadline": "2026-02-25T12:00:00+02:00",
+          "description": "DataFlow's AP department flagged a $2,400 discrepancy on January invoice. Need to reconcile hours log and send corrected invoice today.",
+          "lastUpdated": "2026-02-24T16:30:00+02:00",
+          "tags": ["billing", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "active",
+      "name": "🟡 Active / In Progress",
+      "items": [
+        {
+          "id": "techbridge-content-strategy",
+          "title": "TechBridge Solutions — Content Strategy Overhaul",
+          "status": "in-progress",
+          "deadline": "2026-03-07T18:00:00+02:00",
+          "description": "Redesigning their entire content pipeline: blog cadence, thought leadership pieces, and LinkedIn strategy. Currently drafting editorial calendar for Q2.",
+          "lastUpdated": "2026-02-24T14:00:00+02:00",
+          "tags": ["client-work", "content-strategy"]
+        },
+        {
+          "id": "cloudnine-social-campaign",
+          "title": "CloudNine Ventures — Social Media Campaign",
+          "status": "in-progress",
+          "deadline": "2026-03-01T18:00:00+02:00",
+          "description": "Managing their Series B announcement campaign across LinkedIn, Twitter/X, and TechCrunch contributed article. 12 posts scheduled, 8 drafted.",
+          "lastUpdated": "2026-02-25T06:00:00+02:00",
+          "tags": ["client-work", "social-media"]
+        },
+        {
+          "id": "apex-workshop-prep",
+          "title": "Apex Dynamics — Leadership Workshop Prep",
+          "status": "in-progress",
+          "deadline": "2026-03-04T09:00:00+02:00",
+          "description": "Preparing half-day workshop on 'Marketing-Led Growth for B2B SaaS' for Apex's leadership team. Slide deck 60% complete, need to finalize case studies.",
+          "lastUpdated": "2026-02-23T19:00:00+02:00",
+          "tags": ["client-work", "workshops"]
+        },
+        {
+          "id": "meridian-market-research",
+          "title": "Meridian Analytics — Competitive Market Research",
+          "status": "in-progress",
+          "deadline": "2026-03-10T18:00:00+02:00",
+          "description": "Deep dive into Meridian's competitive landscape. Analyzing 6 direct competitors across pricing, positioning, and feature gaps. Interview with their VP Sales scheduled.",
+          "lastUpdated": "2026-02-24T11:30:00+02:00",
+          "tags": ["client-work", "research"]
+        },
+        {
+          "id": "personal-crm-updates",
+          "title": "CRM & Pipeline Updates",
+          "status": "in-progress",
+          "deadline": null,
+          "description": "Weekly CRM hygiene: update deal stages, log recent conversations, and tag new leads from last week's networking event.",
+          "lastUpdated": "2026-02-24T08:00:00+02:00",
+          "tags": ["admin", "pipeline"]
+        },
+        {
+          "id": "newsletter-march-issue",
+          "title": "Monthly Newsletter — March Issue Draft",
+          "status": "in-progress",
+          "deadline": "2026-02-28T18:00:00+02:00",
+          "description": "Writing the March edition of 'The Growth Signal' newsletter. Theme: AI-driven marketing automation. Subscriber list at 2,847.",
+          "lastUpdated": "2026-02-24T20:00:00+02:00",
+          "tags": ["content-strategy", "newsletter"]
+        },
+        {
+          "id": "dataflow-seo-audit",
+          "title": "DataFlow Inc — SEO Audit Implementation",
+          "status": "in-progress",
+          "deadline": "2026-03-14T18:00:00+02:00",
+          "description": "Implementing recommendations from January's SEO audit. Currently working on technical fixes (site speed, schema markup) and content gap analysis.",
+          "lastUpdated": "2026-02-23T15:00:00+02:00",
+          "tags": ["client-work", "seo"]
+        },
+        {
+          "id": "summit-speaker-proposal",
+          "title": "GrowthCon 2026 — Speaker Proposal",
+          "status": "in-progress",
+          "deadline": "2026-03-01T23:59:00+02:00",
+          "description": "Drafting talk proposal: 'From Metrics to Meaning: Building Marketing Dashboards That Drive Decisions.' Abstract done, working on outline and bio.",
+          "lastUpdated": "2026-02-22T17:00:00+02:00",
+          "tags": ["speaking", "personal-brand"]
+        },
+        {
+          "id": "vantage-onboarding",
+          "title": "Vantage Partners — New Client Onboarding",
+          "status": "in-progress",
+          "deadline": "2026-02-28T18:00:00+02:00",
+          "description": "Onboarding new client. Discovery phase: stakeholder interviews scheduled this week, brand audit in progress, setting up shared workspace.",
+          "lastUpdated": "2026-02-24T10:00:00+02:00",
+          "tags": ["client-work", "onboarding"]
+        }
+      ]
+    },
+    {
+      "id": "needs-review",
+      "name": "🔵 Needs Review",
+      "items": [
+        {
+          "id": "meridian-q1-proposal-draft",
+          "title": "Meridian Analytics — Q1 Proposal Draft",
+          "status": "pending-review",
+          "deadline": "2026-02-25T14:00:00+02:00",
+          "description": "Completed draft of the Q1 brand strategy proposal. Needs final review of pricing tiers and scope of deliverables before sending to Marcus Rivera.",
+          "lastUpdated": "2026-02-25T06:15:00+02:00",
+          "tags": ["client-work", "proposals"]
+        },
+        {
+          "id": "techbridge-analytics-report",
+          "title": "TechBridge Solutions — January Analytics Report",
+          "status": "pending-review",
+          "deadline": "2026-02-26T18:00:00+02:00",
+          "description": "Monthly performance report covering paid campaigns, organic traffic, and conversion metrics. Key highlight: 34% increase in MQLs. Needs proofread.",
+          "lastUpdated": "2026-02-24T18:00:00+02:00",
+          "tags": ["client-work", "analytics", "reporting"]
+        },
+        {
+          "id": "cloudnine-contract-amendment",
+          "title": "CloudNine Ventures — Contract Amendment",
+          "status": "pending-review",
+          "deadline": "2026-02-27T18:00:00+02:00",
+          "description": "Expanding scope to include investor relations comms for Series B. Amendment adds 15 hrs/month. Legal reviewed, waiting on my final check of deliverables language.",
+          "lastUpdated": "2026-02-24T09:00:00+02:00",
+          "tags": ["client-work", "contracts"]
+        },
+        {
+          "id": "apex-case-study-draft",
+          "title": "Apex Dynamics — Case Study Draft",
+          "status": "pending-review",
+          "deadline": "2026-02-28T18:00:00+02:00",
+          "description": "Draft case study: 'How Apex Dynamics Increased Pipeline 3x with Content-Led Growth.' Awaiting client approval on quotes and metrics used.",
+          "lastUpdated": "2026-02-23T14:00:00+02:00",
+          "tags": ["client-work", "content-strategy"]
+        }
+      ]
+    },
+    {
+      "id": "reminders",
+      "name": "⏰ Future Reminders",
+      "items": [
+        {
+          "id": "quarterly-review-prep",
+          "title": "Q1 Quarterly Business Review — Prep",
+          "status": "scheduled",
+          "deadline": "2026-03-15T10:00:00+02:00",
+          "description": "Prepare Q1 review deck: revenue summary, client retention, pipeline forecast, and capacity planning for Q2.",
+          "lastUpdated": "2026-02-20T10:00:00+02:00",
+          "tags": ["admin", "planning"],
+          "cronJobId": "reminder-quarterly-review"
+        },
+        {
+          "id": "adobe-license-renewal",
+          "title": "Adobe Creative Cloud — License Renewal",
+          "status": "scheduled",
+          "deadline": "2026-03-12T00:00:00+02:00",
+          "description": "Annual Creative Cloud renewal. Consider upgrading to team plan if bringing on contractor for CloudNine project.",
+          "lastUpdated": "2026-02-18T09:00:00+02:00",
+          "tags": ["admin", "subscriptions"],
+          "cronJobId": "reminder-adobe-renewal"
+        },
+        {
+          "id": "vantage-kickoff-meeting",
+          "title": "Vantage Partners — Kickoff Meeting",
+          "status": "scheduled",
+          "deadline": "2026-02-27T14:00:00+02:00",
+          "description": "Formal project kickoff with Vantage leadership team. Agenda: project scope review, timeline walkthrough, communication cadence.",
+          "lastUpdated": "2026-02-24T10:00:00+02:00",
+          "tags": ["client-work", "meetings"],
+          "cronJobId": "reminder-vantage-kickoff"
+        },
+        {
+          "id": "tax-docs-deadline",
+          "title": "2025 Tax Documents — Accountant Submission",
+          "status": "scheduled",
+          "deadline": "2026-03-20T18:00:00+02:00",
+          "description": "Compile and send all 2025 business expense receipts, 1099s, and revenue reports to accountant (Lisa Park at Greenfield CPA).",
+          "lastUpdated": "2026-02-15T08:00:00+02:00",
+          "tags": ["admin", "finance"],
+          "cronJobId": "reminder-tax-docs"
+        }
+      ]
+    },
+    {
+      "id": "completed",
+      "name": "✅ Completed",
+      "items": [
+        {
+          "id": "dataflow-jan-retainer",
+          "title": "DataFlow Inc — January Retainer Deliverables",
+          "status": "completed",
+          "deadline": null,
+          "description": "Completed all January retainer deliverables: 4 blog posts, 12 social posts, monthly analytics review, and SEO recommendations report.",
+          "lastUpdated": "2026-02-21T17:00:00+02:00",
+          "tags": ["client-work", "retainer"]
+        },
+        {
+          "id": "techbridge-brand-guidelines",
+          "title": "TechBridge Solutions — Brand Guidelines v2",
+          "status": "completed",
+          "deadline": null,
+          "description": "Delivered updated brand guidelines including new messaging framework, tone of voice documentation, and visual identity system refresh.",
+          "lastUpdated": "2026-02-20T15:00:00+02:00",
+          "tags": ["client-work", "branding"]
+        },
+        {
+          "id": "growthcon-ticket-booked",
+          "title": "GrowthCon 2026 — Ticket & Travel Booked",
+          "status": "completed",
+          "deadline": null,
+          "description": "Conference registration confirmed. Flights and hotel booked for Apr 8-10 in Austin. Early bird rate secured.",
+          "lastUpdated": "2026-02-19T11:00:00+02:00",
+          "tags": ["speaking", "travel"]
+        },
+        {
+          "id": "website-portfolio-update",
+          "title": "Personal Website — Portfolio Update",
+          "status": "completed",
+          "deadline": null,
+          "description": "Added 3 new case studies to portfolio page, updated testimonials section, and refreshed headshot. PageSpeed score improved to 94.",
+          "lastUpdated": "2026-02-22T20:00:00+02:00",
+          "tags": ["personal-brand", "website"]
+        },
+        {
+          "id": "cloudnine-personas-research",
+          "title": "CloudNine Ventures — Buyer Persona Research",
+          "status": "completed",
+          "deadline": null,
+          "description": "Completed buyer persona research with 8 customer interviews. Delivered persona deck with 4 primary segments and messaging recommendations.",
+          "lastUpdated": "2026-02-23T16:00:00+02:00",
+          "tags": ["client-work", "research"]
+        }
+      ]
+    },
+    {
+      "id": "deferred",
+      "name": "⏸️ Deferred",
+      "items": [
+        {
+          "id": "podcast-launch-planning",
+          "title": "Podcast Launch — 'The Growth Signal'",
+          "status": "deferred",
+          "deadline": null,
+          "description": "Planning a companion podcast to the newsletter. Deferred to Q2 — current client load too heavy. Have outline for first 6 episodes.",
+          "lastUpdated": "2026-02-10T12:00:00+02:00",
+          "tags": ["personal-brand", "content-strategy"]
+        },
+        {
+          "id": "automation-zapier-overhaul",
+          "title": "Zapier Workflow Overhaul",
+          "status": "deferred",
+          "deadline": null,
+          "description": "Current automation stack is getting messy — 23 zaps, some redundant. Need to audit, consolidate, and document. Pushing to late March.",
+          "lastUpdated": "2026-02-12T09:00:00+02:00",
+          "tags": ["admin", "automation"]
+        },
+        {
+          "id": "referral-program-design",
+          "title": "Client Referral Program Design",
+          "status": "deferred",
+          "deadline": null,
+          "description": "Design a formal referral incentive program for existing clients. Had initial ideas but deprioritized in favor of direct business development.",
+          "lastUpdated": "2026-02-08T14:00:00+02:00",
+          "tags": ["business-development"]
+        }
+      ]
+    },
+    {
+      "id": "archived",
+      "name": "📦 Archived",
+      "items": [
+        {
+          "id": "nexus-rebrand-project",
+          "title": "Nexus Digital — Rebrand Project",
+          "status": "completed",
+          "deadline": null,
+          "description": "Full rebrand engagement completed in January. Delivered new brand identity, messaging framework, and launch campaign. Client thrilled — left testimonial.",
+          "lastUpdated": "2026-01-28T18:00:00+02:00",
+          "tags": ["client-work", "branding"]
+        },
+        {
+          "id": "year-end-planning-2025",
+          "title": "2025 Year-End Business Planning",
+          "status": "completed",
+          "deadline": null,
+          "description": "Completed annual review and 2026 planning: revenue targets, service offerings update, pricing restructure, and capacity model.",
+          "lastUpdated": "2026-01-15T10:00:00+02:00",
+          "tags": ["admin", "planning"]
+        },
+        {
+          "id": "brightpath-engagement-closed",
+          "title": "BrightPath Education — Engagement Closed",
+          "status": "completed",
+          "deadline": null,
+          "description": "3-month marketing strategy engagement completed. Handed off to their internal team with full playbook and 90-day execution plan.",
+          "lastUpdated": "2026-01-20T16:00:00+02:00",
+          "tags": ["client-work", "strategy"]
+        }
+      ]
+    }
+  ]
+}

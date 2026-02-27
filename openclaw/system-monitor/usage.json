@@ -1,0 +1,26 @@
+{
+  "lastScanned": "2026-02-25 06:55 IST",
+  "lastScannedISO": "2026-02-25T06:55:00+02:00",
+  "models": [
+    {
+      "id": "claude-opus-4-6", "short": "opus-4-6",
+      "today": {"tokens": 125000, "cost": 4.85, "input": 95000, "output": 30000},
+      "yesterday": {"tokens": 310000, "cost": 12.40, "input": 240000, "output": 70000},
+      "7days": {"tokens": 1850000, "cost": 72.30, "input": 1400000, "output": 450000},
+      "mtd": {"tokens": 5200000, "cost": 198.50, "input": 3900000, "output": 1300000}
+    },
+    {
+      "id": "claude-sonnet-4-20250514", "short": "sonnet-4-20250514",
+      "today": {"tokens": 45000, "cost": 0.42, "input": 35000, "output": 10000},
+      "yesterday": {"tokens": 120000, "cost": 1.15, "input": 95000, "output": 25000},
+      "7days": {"tokens": 680000, "cost": 6.50, "input": 520000, "output": 160000},
+      "mtd": {"tokens": 1900000, "cost": 18.20, "input": 1450000, "output": 450000}
+    }
+  ],
+  "totals": {
+    "today": {"tokens": 170000, "cost": 5.27, "input": 130000, "output": 40000},
+    "yesterday": {"tokens": 430000, "cost": 13.55, "input": 335000, "output": 95000},
+    "7days": {"tokens": 2530000, "cost": 78.80, "input": 1920000, "output": 610000},
+    "mtd": {"tokens": 7100000, "cost": 216.70, "input": 5350000, "output": 1750000}
+  }
+}

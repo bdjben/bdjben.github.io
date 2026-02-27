@@ -1,0 +1,9 @@
+{
+  "sessions": [
+    {"key": "agent:main:main", "kind": "main", "label": "Primary Agent", "age": "2m", "model": "claude-opus-4-6", "tokens": 45200, "status": "running"},
+    {"key": "agent:main:subagent:abc123", "kind": "subagent", "label": "Report Generator", "age": "8m", "model": "claude-sonnet-4-20250514", "tokens": 12300, "status": "completed", "spawnedBy": "agent:main:main"},
+    {"key": "agent:main:subagent:def456", "kind": "subagent", "label": "Market Research", "age": "15m", "model": "claude-opus-4-6", "tokens": 28900, "status": "completed", "spawnedBy": "agent:main:main"},
+    {"key": "agent:main:cron:dashboard-refresh", "kind": "cron", "label": "Dashboard Refresh", "age": "25m", "model": "claude-sonnet-4-20250514", "tokens": 3400, "status": "completed"},
+    {"key": "agent:main:cron:email-scan", "kind": "cron", "label": "Email Scanner", "age": "12m", "model": "claude-sonnet-4-20250514", "tokens": 5100, "status": "completed"}
+  ]
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=2560">
+<title>Dashboard Demo - Agenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background: #0a0e14; }
+iframe { border: none; width: 2560px; height: 1440px; transform-origin: top left; display: block; }
+</style>
+</head>
+<body>
+<iframe id="dash" src="dashboard.html"></iframe>
+<script>
+(function() {
+  function fit() {
+    var sx = window.innerWidth / 2560;
+    var sy = window.innerHeight / 1440;
+    var s = Math.min(sx, sy);
+    document.getElementById('dash').style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+
+</body>
+</html>

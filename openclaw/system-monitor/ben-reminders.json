@@ -1,0 +1,6 @@
+{
+  "items": [
+    {"id": "reminder-quarterly-review", "title": "Q1 Quarterly Business Review", "status": "scheduled", "deadline": "2026-03-01T09:00:00+02:00", "cronJobId": "reminder-quarterly-review"},
+    {"id": "reminder-license-renewal", "title": "Adobe Creative Cloud Renewal", "status": "scheduled", "deadline": "2026-03-15T00:00:00+02:00", "cronJobId": "reminder-license-renewal"}
+  ]
+}

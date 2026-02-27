@@ -1,0 +1,6 @@
+{
+  "errors": [
+    {"timestamp": "2026-02-25T03:12:00Z", "source": "gateway", "message": "Calendar API rate limit hit — backing off 30s", "severity": "warning"},
+    {"timestamp": "2026-02-24T22:45:00Z", "source": "cron", "message": "Social Monitor: Twitter API returned 429 Too Many Requests", "severity": "warning"}
+  ]
+}

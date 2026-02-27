@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=2560,initial-scale=1">
+<title>Dashboard Demo - Project View</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700</head>display=swap" rel="stylesheet"></head>
+<body>
+<!-- Welcome Overlay (hidden by default, shown via About button) -->
+<div id="welcomeOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0);z-index:9999;display:none;align-items:center;justify-content:center;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;">
+  <div style="background:rgba(13,21,32,0.95);border:1px solid rgba(0,212,255,0.25);box-shadow:0 0 40px rgba(0,212,255,0.2);max-width:90vw;min-width:700px;max-height:80vh;overflow-y:auto;padding:2.5em 3em;position:relative;border-radius:6px;">
+    <button onclick="document.getElementById('welcomeOverlay').style.display='none'" style="position:absolute;top:14px;right:18px;background:none;border:none;color:#667788;font-size:2em;cursor:pointer;font-family:inherit;line-height:1;padding:6px 10px;z-index:10;" onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#667788'">✕</button>
+    <div style="text-align:center;margin-bottom:1.5em;">
+      <div style="font-size:1.47em;color:#00d4ff;letter-spacing:0.2em;font-weight:bold;margin-bottom:0.3em;">OpenClaw Dashboard Demo — Ben Badejo</div>
+      <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.5),transparent);"></div>
+    </div>
+    <div style="color:#c8d6e5;font-size:0.85em;line-height:1.8;margin-bottom:1.2em;">
+      <p style="margin-bottom:0.8em;">You're viewing a live demo of a fully-functional four-screen unified operations dashboard, built by Ben Badejo using OpenClaw.</p>
+      <p style="margin-bottom:0.8em;">In a real deployment, each screen is continuously updated by live calls to Google Calendar, Gmail, and platform data — keeping you informed in real time without lifting a finger.</p>
+      <p style="margin-bottom:1em;">These dashboards are included in Ben's full, end-to-end OpenClaw setup offering. Ben also offers one-on-one consultations, hourly trainings, custom project development with direct (not outsourced) remote implementation, platform security guidance, and ongoing maintenance for clients.</p>
+      <div style="text-align:center;">
+        <a href="https://benbadejo.youcanbook.me" target="_blank" style="display:inline-block;background:#ff3333;color:#fff;font-weight:bold;font-family:inherit;font-size:1em;letter-spacing:0.12em;padding:14px 40px;border-radius:5px;text-decoration:none;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ff5555';this.style.boxShadow='0 0 20px rgba(255,51,51,0.5)'" onmouseout="this.style.background='#ff3333';this.style.boxShadow='none'">BOOK A SESSION WITH BEN →</a>
+      </div>
+    </div>
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),transparent);margin:1.5em 0;"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1em;">
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">AGENDA</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Your personal command center — a real-time operational status board showing active tasks by urgency, upcoming calendar events, items needing review, and a live changelog of recent activity.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">CRM</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">A full client pipeline management system tracking every prospect through stages from inquiry to active engagement, with calendar view, invoice tracking, and response-needed alerts.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">PROJECT VIEW</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">A bird's-eye perspective across every domain of your work — consulting, networking, personal projects, and more — organized into categories with live status tracking and social media intelligence.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">SYSTEM MONITOR</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Mission control for your OpenClaw deployment — active agents, loaded skills, scheduled operations, live token usage, and a real-time error log.</div>
+      </div>
+    </div>
+    <div style="background:rgba(0,212,255,0.05);border-radius:4px;padding:1.2em 1.5em;margin-top:1.5em;">
+      <div style="font-size:0.7em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">NAVIGATING THE DASHBOARDS</div>
+      <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Use ← → arrow keys, middle click, or swipe left/right on a touchpad to move between dashboards. Click the title name in the top-left corner to advance to the next dashboard.</div>
+    </div>
+  </div>
+</div>
+<div class="scanlines"></div>
+<div class="hud-frame">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+</div>
+
+<header class="top-bar">
+  <div class="top-left">
+    <a href="../system-monitor/" class="title title-link" target="_parent">PROJECT VIEW</a>
+    <div class="subtitle">DOMAINS &amp; INITIATIVES</div>
+  </div>
+  <div class="top-center">
+    <span class="system-status"><span class="pulse-dot green"></span> SYSTEM OPERATIONAL</span>
+    <span class="sep">|</span>
+    <span class="last-refresh">LAST SYNC: <span id="lastRefresh">—</span></span>
+  </div>
+  <div class="top-right">
+    <div class="date" id="dateDisplay"></div>
+    <div class="clock" id="clockDisplay"></div>
+    <button class="refresh-btn" id="refreshAll" title="REFRESH ALL">⟳</button>
+  </div>
+</header>
+
+<main class="project-main">
+  <div class="project-grid" id="projectGrid">
+    <!-- Dynamically populated -->
+  </div>
+</main>
+
+<!-- CTA Buttons -->
+<div id="ctaButtons" style="position:fixed;bottom:36px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 0;z-index:500;pointer-events:none;">
+  <button onclick="document.getElementById('welcomeOverlay').style.display='flex'" style="pointer-events:auto;background:#00aa44;color:#fff;font-weight:bold;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;font-size:clamp(10px, 0.85vw, 17px);letter-spacing:0.12em;padding:clamp(8px, 0.6vw, 12px) clamp(20px, 1.5vw, 31px);border-radius:5px;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='#22c55e';this.style.boxShadow='0 0 16px rgba(34,197,94,0.5)'" onmouseout="this.style.background='#00aa44';this.style.boxShadow='none'">ABOUT THIS DEMO ℹ</button>
+  <a href="https://benbadejo.youcanbook.me" target="_blank" style="pointer-events:auto;background:#ff3333;color:#fff;font-weight:bold;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;font-size:clamp(10px, 0.85vw, 17px);letter-spacing:0.12em;padding:clamp(8px, 0.6vw, 12px) clamp(20px, 1.5vw, 31px);border-radius:5px;text-decoration:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='#ff5555';this.style.boxShadow='0 0 16px rgba(255,51,51,0.5)'" onmouseout="this.style.background='#ff3333';this.style.boxShadow='none'">BOOK A SESSION WITH BEN →</a>
+</div>
+
+<style>
+.changelog-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(17,24,34,0.95) 0%,rgba(10,14,20,0.98) 100%);border-top:1px solid rgba(0,191,165,0.25);display:flex;align-items:center;justify-content:center;gap:2vw;padding:0.6vh 2vw;z-index:50;cursor:pointer;transition:border-color 0.3s}
+.changelog-bar:hover{border-top-color:rgba(0,191,165,0.5)}
+.changelog-bar-label{font-size:clamp(12px,0.8vw,16px);font-weight:700;letter-spacing:0.2em;color:var(--teal);text-transform:uppercase}
+.changelog-bar-sep{color:rgba(0,191,165,0.3);font-size:0.9em}
+.changelog-bar-stat{font-size:clamp(11px,0.7vw,14px);color:var(--text-dim);letter-spacing:0.1em}
+.changelog-bar-stat strong{font-weight:600}
+.changelog-bar-stat strong.count-added{color:var(--green)}.changelog-bar-stat strong.count-modified{color:var(--amber)}.changelog-bar-stat strong.count-removed{color:var(--red)}
+.changelog-detail{position:fixed;bottom:0;left:0;right:0;max-height:0;overflow:hidden;background:rgba(10,14,20,0.97);border-top:1px solid rgba(0,212,255,0.2);transition:max-height 0.4s ease,padding 0.3s;z-index:599}
+.changelog-detail.expanded{max-height:50vh;overflow-y:auto;padding:2em 3em 3em}
+.changelog-detail-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5vh}
+.changelog-detail-title{color:var(--cyan);font-size:clamp(10px,0.8vw,14px);letter-spacing:0.3em;font-weight:700}
+.changelog-detail-close{background:none;border:1px solid rgba(255,51,51,0.3);color:var(--red,#ff3333);padding:4px 12px;font-family:var(--font);font-size:clamp(8px,0.6vw,11px);letter-spacing:0.15em;cursor:pointer;border-radius:3px}
+.changelog-entry{border-left:2px solid var(--cyan);margin-bottom:0.8vh;padding:0.5vh 0.8vw}
+.changelog-time{font-size:clamp(8px,0.6vw,11px);color:var(--cyan);letter-spacing:0.15em;margin-bottom:0.3vh}
+.changelog-change{margin-bottom:0.4vh}
+.changelog-change-type{font-size:clamp(7px,0.55vw,10px);letter-spacing:0.1em;padding:1px 6px;border-radius:2px;margin-right:0.5em;font-weight:700}
+.type-added{background:rgba(0,255,136,0.15);color:#00ff88}
+.type-modified{background:rgba(255,184,0,0.15);color:#ffb800}
+.type-removed{background:rgba(255,51,51,0.15);color:#ff3333}
+.changelog-item-name{color:var(--text);font-weight:600}
+.changelog-summary{font-size:clamp(8px,0.6vw,11px);color:var(--text-dim);margin-top:2px;line-height:1.6}
+.project-main{padding-bottom:36px}
+</style>
+
+<footer class="changelog-bar" id="changelogBar"></footer>
+<div class="changelog-detail" id="changelogDetail"></div>
+
+<script>
+(function(){
+  var DEMO_CHANGELOG=[
+    {time:'18:30',type:'modified',item:'AI Adoption Roadmap',summary:'Status changed from planning → active. Client approved Phase 1 scope and timeline.'},
+    {time:'16:15',type:'added',item:'Hebrew Language Program',summary:'New personal development project added. Ulpan enrollment confirmed for March.'},
+    {time:'14:00',type:'modified',item:'TechSummit SF Keynote',summary:'Slide deck draft completed. 3/5 sections finalized. Review scheduled for Monday.'},
+    {time:'11:45',type:'modified',item:'Weekly Newsletter',summary:'Issue #47 published. 2,400 subscribers. Open rate tracking at 34%.'}
+  ];
+  var bar=document.getElementById('changelogBar'),detail=document.getElementById('changelogDetail');
+  var added=0,modified=0,removed=0;
+  DEMO_CHANGELOG.forEach(function(c){if(c.type==='added')added++;else if(c.type==='modified')modified++;else if(c.type==='removed')removed++});
+  bar.innerHTML='<span class="changelog-bar-label">RECENT CHANGES</span><span class="changelog-bar-sep">|</span>'+
+    '<span class="changelog-bar-stat">Added: <strong class="count-added">'+added+'</strong></span><span class="changelog-bar-sep">·</span>'+
+    '<span class="changelog-bar-stat">Modified: <strong class="count-modified">'+modified+'</strong></span><span class="changelog-bar-sep">·</span>'+
+    '<span class="changelog-bar-stat">Removed: <strong class="count-removed">'+removed+'</strong></span>';
+  var html='<div class="changelog-detail-header"><span class="changelog-detail-title">RECENT CHANGES</span><button class="changelog-detail-close" id="clClose">CLOSE ✕</button></div>';
+  DEMO_CHANGELOG.forEach(function(c){
+    html+='<div class="changelog-entry"><div class="changelog-time">'+c.time+'</div>';
+    html+='<div class="changelog-change"><span class="changelog-change-type type-'+c.type+'">'+c.type.toUpperCase()+'</span><span class="changelog-item-name">'+c.item+'</span><div class="changelog-summary">'+c.summary+'</div></div></div>';
+  });
+  detail.innerHTML=html;
+  document.getElementById('clClose').onclick=function(){detail.classList.remove('expanded')};
+  bar.onclick=function(){detail.classList.toggle('expanded')};
+  document.addEventListener('click',function(e){
+    var cta=document.getElementById('ctaButtons');
+    if(detail.classList.contains('expanded')&&!detail.contains(e.target)&&!bar.contains(e.target)&&(!cta||!cta.contains(e.target)))detail.classList.remove('expanded');
+  });
+})();
+</script>
+<script>document.getElementById('welcomeOverlay').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});</script>
+<script src="app.js"></script>
+
+<script>
+(function(){
+  var DASHBOARDS = ['../agenda/', '../crm/', '../project-view/', '../system-monitor/'];
+  var ci = 2;
+  var nav = function(url) { (window.parent || window).location.href = url; };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') nav(DASHBOARDS[(ci + 1) % DASHBOARDS.length]);
+    else if (e.key === 'ArrowLeft') nav(DASHBOARDS[(ci - 1 + DASHBOARDS.length) % DASHBOARDS.length]);
+  });
+  var sx=0, sy=0, swipeAccumX=0, swipeFired=false, SWIPE_THRESHOLD=80;
+  document.addEventListener('touchstart', function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; swipeAccumX=0; swipeFired=false; });
+  document.addEventListener('touchmove', function(e){
+    if(swipeFired) return;
+    swipeAccumX = sx - e.touches[0].clientX;
+    if(swipeAccumX > SWIPE_THRESHOLD){ swipeFired=true; nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]); }
+    else if(swipeAccumX < -SWIPE_THRESHOLD){ swipeFired=true; nav(DASHBOARDS[(ci-1+DASHBOARDS.length)%DASHBOARDS.length]); }
+  });
+  document.addEventListener('mousedown', function(e){ if(e.button===1){ e.preventDefault(); nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]); }});
+  var lastWheelTime=0;
+  document.addEventListener('wheel', function(e){
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY) && Date.now()-lastWheelTime>500){
+      lastWheelTime=Date.now();
+      var dx=e.deltaX;
+      if(dx<0) nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]);
+      else nav(DASHBOARDS[(ci-1+DASHBOARDS.length)%DASHBOARDS.length]);
+    }
+  });
+})();
+</script>
+</body>
+</html>

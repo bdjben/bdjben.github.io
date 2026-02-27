@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=2560,initial-scale=1">
+<title>Dashboard Demo - Agenda</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700</head>display=swap" rel="stylesheet"></head>
+<body>
+<div class="scanlines"></div>
+<div class="hud-frame">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+</div>
+
+<!-- WELCOME OVERLAY -->
+<div id="welcomeOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;">
+  <div style="background:rgba(13,21,32,0.95);border:1px solid rgba(0,212,255,0.25);box-shadow:0 0 40px rgba(0,212,255,0.2);max-width:90vw;min-width:700px;max-height:80vh;overflow-y:auto;padding:2.5em 3em;position:relative;border-radius:6px;">
+    <!-- Close button -->
+    <button onclick="document.getElementById('welcomeOverlay').style.display='none'" style="position:absolute;top:14px;right:18px;background:none;border:none;color:#667788;font-size:2em;cursor:pointer;font-family:inherit;line-height:1;padding:6px 10px;z-index:10;" onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#667788'">✕</button>
+
+    <!-- Title -->
+    <div style="text-align:center;margin-bottom:1.5em;">
+      <div style="font-size:1.47em;color:#00d4ff;letter-spacing:0.2em;font-weight:bold;margin-bottom:0.3em;">OpenClaw Dashboard Demo — Ben Badejo</div>
+      <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.5),transparent);"></div>
+    </div>
+
+    <!-- Intro + YCBM button -->
+    <div style="color:#c8d6e5;font-size:0.85em;line-height:1.8;margin-bottom:1.2em;">
+      <p style="margin-bottom:0.8em;">You're viewing a live demo of a fully-functional four-screen unified operations dashboard, built by Ben Badejo using OpenClaw.</p>
+      <p style="margin-bottom:0.8em;">In a real deployment, each screen is continuously updated by live calls to Google Calendar, Gmail, and platform data — keeping you informed in real time without lifting a finger.</p>
+      <p style="margin-bottom:1em;">These dashboards are included in Ben's full, end-to-end OpenClaw setup offering. Ben also offers one-on-one consultations, hourly trainings, custom project development with direct (not outsourced) remote implementation, platform security guidance, and ongoing maintenance for clients.</p>
+      <div style="text-align:center;">
+        <a href="https://benbadejo.youcanbook.me" target="_blank" style="display:inline-block;background:#ff3333;color:#fff;font-weight:bold;font-family:inherit;font-size:1em;letter-spacing:0.12em;padding:14px 40px;border-radius:5px;text-decoration:none;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ff5555';this.style.boxShadow='0 0 20px rgba(255,51,51,0.5)'" onmouseout="this.style.background='#ff3333';this.style.boxShadow='none'">BOOK A SESSION WITH BEN →</a>
+      </div>
+    </div>
+
+    <!-- Separator -->
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),transparent);margin:1.5em 0;"></div>
+
+    <!-- 2x2 Dashboard description grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1em;">
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">AGENDA</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Your personal command center — a real-time operational status board showing active tasks by urgency, upcoming calendar events, items needing review, and a live changelog of recent activity.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">CRM</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">A full client pipeline management system tracking every prospect through stages from inquiry to active engagement, with calendar view, invoice tracking, and response-needed alerts.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">PROJECT VIEW</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">A bird's-eye perspective across every domain of your work — consulting, networking, personal projects, and more — organized into categories with live status tracking and social media intelligence.</div>
+      </div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:4px;padding:1.2em;">
+        <div style="font-size:0.73em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">SYSTEM MONITOR</div>
+        <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Mission control for your OpenClaw deployment — active agents, loaded skills, scheduled operations, live token usage, and a real-time error log.</div>
+      </div>
+    </div>
+
+    <!-- Navigation section -->
+    <div style="background:rgba(0,212,255,0.05);border-radius:4px;padding:1.2em 1.5em;margin-top:1.5em;">
+      <div style="font-size:0.7em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">NAVIGATING THE DASHBOARDS</div>
+      <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Use ← → arrow keys, middle click, or swipe left/right on a touchpad to move between dashboards. Click the title name in the top-left corner to advance to the next dashboard.</div>
+    </div>
+  </div>
+</div>
+
+<header class="top-bar">
+  <div class="top-left">
+    <a href="../crm/" class="title title-link" target="_parent">AGENDA</a>
+    <div class="subtitle">OPERATIONAL STATUS</div>
+  </div>
+  <div class="top-center">
+    <span class="system-status"><span class="pulse-dot green"></span> SYSTEM OPERATIONAL</span>
+    <span class="sep">|</span>
+    <span class="last-refresh">LAST SYNC: <span id="lastRefresh">—</span></span>
+  </div>
+  <div class="top-right">
+    <div class="date" id="dateDisplay"></div>
+    <div class="clock" id="clockDisplay"></div>
+    <div class="search-container" id="searchContainer">
+      <button class="search-toggle" id="searchToggle" title="Search (/)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="21" y2="21"/></svg></button>
+      <input type="text" class="search-input" id="searchInput" placeholder="SEARCH..." autocomplete="off">
+    </div>
+    <button class="refresh-btn" id="refreshAll" title="REFRESH ALL">⟳</button>
+  </div>
+</header>
+
+<main class="grid">
+  <section class="column col-left">
+    <div id="col-urgent">
+      <div class="section-header urgent-header">
+        <span class="header-line"></span>
+        <span class="header-text">URGENT / TIME-SENSITIVE</span>
+        <span class="item-count" id="count-urgent">0</span>
+        <button class="cat-refresh" data-cat="urgent" title="Refresh">⟳</button>
+        <span class="header-line"></span>
+      </div>
+      <div class="sort-control" id="sortControlUrgent">Sorted by: <span id="sortLabelUrgent">STATUS</span> ▼</div>
+      <div class="card-list" id="list-urgent"></div>
+    </div>
+    <div id="col-calendar">
+      <div class="section-header calendar-header">
+        <span class="header-line"></span>
+        <span class="header-text">📅 UPCOMING CALENDAR</span>
+        <span class="item-count" id="count-calendar">0</span>
+        <span class="header-line"></span>
+      </div>
+      <div class="card-list" id="list-calendar"></div>
+    </div>
+    <div id="col-needs-review">
+      <div class="section-header needs-review-header">
+        <span class="header-line"></span>
+        <span class="header-text">📋 NEEDS REVIEW</span>
+        <span class="item-count" id="count-needs-review">0</span>
+        <span class="header-line"></span>
+      </div>
+      <div class="card-list" id="list-needs-review"></div>
+    </div>
+  </section>
+
+  <section class="column col-center">
+    <div id="col-active">
+      <div class="section-header active-header">
+        <span class="header-line"></span>
+        <span class="header-text">ACTIVE / IN PROGRESS</span>
+        <span class="item-count" id="count-active">0</span>
+        <button class="cat-refresh" data-cat="active" title="Refresh">⟳</button>
+        <span class="header-line"></span>
+      </div>
+      <div class="sort-control" id="sortControl">Sorted by: <span id="sortLabel">STATUS</span> ▼</div>
+      <div class="card-list" id="list-active"></div>
+    </div>
+  </section>
+
+  <section class="column col-right">
+    <div id="col-deferred">
+      <div class="section-header deferred-header">
+        <span class="header-line"></span>
+        <span class="header-text">DEFERRED</span>
+        <span class="item-count" id="count-deferred">0</span>
+        <button class="cat-refresh" data-cat="deferred" title="Refresh">⟳</button>
+        <span class="header-line"></span>
+      </div>
+      <div class="sort-control" id="sortControlDeferred">Sorted by: <span id="sortLabelDeferred">STATUS</span> ▼</div>
+      <div class="card-list" id="list-deferred"></div>
+      <div id="reminders-toggle" class="reminders-toggle"></div>
+      <div id="list-reminders" class="reminders-list"></div>
+      <div id="completed-toggle" class="completed-toggle"></div>
+      <div id="list-completed" class="completed-list"></div>
+      <div id="archived-toggle" class="archived-toggle"></div>
+      <div id="list-archived" class="archived-list"></div>
+    </div>
+  </section>
+</main>
+
+<!-- POPUP OVERLAY -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-modal" id="popupModal"></div>
+</div>
+
+<!-- CTA Buttons -->
+<div id="ctaButtons" style="position:fixed;bottom:36px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 0;z-index:500;pointer-events:none;">
+  <button onclick="document.getElementById('welcomeOverlay').style.display='flex'" style="pointer-events:auto;background:#00aa44;color:#fff;font-weight:bold;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;font-size:clamp(10px, 0.85vw, 17px);letter-spacing:0.12em;padding:clamp(8px, 0.6vw, 12px) clamp(20px, 1.5vw, 31px);border-radius:5px;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='#22c55e';this.style.boxShadow='0 0 16px rgba(34,197,94,0.5)'" onmouseout="this.style.background='#00aa44';this.style.boxShadow='none'">ABOUT THIS DEMO ℹ</button>
+  <a href="https://benbadejo.youcanbook.me" target="_blank" style="pointer-events:auto;background:#ff3333;color:#fff;font-weight:bold;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;font-size:clamp(10px, 0.85vw, 17px);letter-spacing:0.12em;padding:clamp(8px, 0.6vw, 12px) clamp(20px, 1.5vw, 31px);border-radius:5px;text-decoration:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='#ff5555';this.style.boxShadow='0 0 16px rgba(255,51,51,0.5)'" onmouseout="this.style.background='#ff3333';this.style.boxShadow='none'">BOOK A SESSION WITH BEN →</a>
+</div>
+
+<!-- RECENT CHANGES FOOTER BAR -->
+<footer class="changelog-bar" id="changelogBar" style="display:flex;align-items:center;">
+</footer>
+
+<script>document.getElementById('welcomeOverlay').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});</script>
+<script src="app.js"></script>
+<script>
+document.addEventListener('click', function(e) {
+  var detail = document.getElementById('changelogDetail');
+  var bar = document.getElementById('changelogBar');
+  var cta = document.getElementById('ctaButtons');
+  if (detail && detail.classList.contains('expanded') && !detail.contains(e.target) && !bar.contains(e.target) && (!cta || !cta.contains(e.target))) {
+    detail.classList.remove('expanded');
+  }
+});
+</script>
+
+<script>
+(function(){
+  var DASHBOARDS = ['../agenda/', '../crm/', '../project-view/', '../system-monitor/'];
+  var ci = 0;
+  var nav = function(url) { (window.parent || window).location.href = url; };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') nav(DASHBOARDS[(ci + 1) % DASHBOARDS.length]);
+    else if (e.key === 'ArrowLeft') nav(DASHBOARDS[(ci - 1 + DASHBOARDS.length) % DASHBOARDS.length]);
+  });
+  var sx=0, sy=0, swipeAccumX=0, swipeFired=false, SWIPE_THRESHOLD=80;
+  document.addEventListener('touchstart', function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; swipeAccumX=0; swipeFired=false; });
+  document.addEventListener('touchmove', function(e){
+    if(swipeFired) return;
+    swipeAccumX = sx - e.touches[0].clientX;
+    if(swipeAccumX > SWIPE_THRESHOLD){ swipeFired=true; nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]); }
+    else if(swipeAccumX < -SWIPE_THRESHOLD){ swipeFired=true; nav(DASHBOARDS[(ci-1+DASHBOARDS.length)%DASHBOARDS.length]); }
+  });
+  document.addEventListener('mousedown', function(e){ if(e.button===1){ e.preventDefault(); nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]); }});
+  var lastWheelTime=0;
+  document.addEventListener('wheel', function(e){
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY) && Date.now()-lastWheelTime>500){
+      lastWheelTime=Date.now();
+      var dx=e.deltaX;
+      if(dx<0) nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]);
+      else nav(DASHBOARDS[(ci-1+DASHBOARDS.length)%DASHBOARDS.length]);
+    }
+  });
+})();
+</script>
+</body>
+</html>

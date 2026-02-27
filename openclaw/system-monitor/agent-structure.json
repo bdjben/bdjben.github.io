@@ -1,0 +1,167 @@
+{
+  "lastUpdated": "2026-02-25T06:00:00Z",
+  "director": {
+    "name": "Primary Agent",
+    "model": "claude-opus-4-6",
+    "status": "active"
+  },
+  "divisions": [
+    {
+      "id": "ops",
+      "name": "Operations",
+      "icon": "\u2699\ufe0f",
+      "health": "healthy",
+      "mandate": "System health monitoring, automated maintenance, and infrastructure management",
+      "units": [
+        {
+          "id": "ops-crons",
+          "name": "Scheduled Tasks",
+          "type": "team",
+          "members": [
+            {
+              "id": "dashboard-refresh",
+              "name": "Dashboard Refresh",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "*/30 * * * *",
+              "lastStatus": "success",
+              "description": "Refreshes dashboard data every 30 minutes"
+            },
+            {
+              "id": "health-check",
+              "name": "System Health Check",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "0 */2 * * *",
+              "lastStatus": "success",
+              "description": "Comprehensive system health verification"
+            },
+            {
+              "id": "log-rotation",
+              "name": "Log Rotation",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "0 3 * * *",
+              "lastStatus": "success",
+              "description": "Daily log cleanup and archival"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comms",
+      "name": "Communications",
+      "icon": "\ud83d\udce1",
+      "health": "healthy",
+      "mandate": "Email monitoring, message handling, and notification dispatch",
+      "units": [
+        {
+          "id": "comms-crons",
+          "name": "Communication Tasks",
+          "type": "team",
+          "members": [
+            {
+              "id": "email-scan",
+              "name": "Email Scanner",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "*/15 * * * *",
+              "lastStatus": "success",
+              "description": "Scans inbox for client messages and urgent items"
+            },
+            {
+              "id": "notification-dispatch",
+              "name": "Notification Dispatch",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "*/5 * * * *",
+              "lastStatus": "success",
+              "description": "Routes notifications to appropriate channels"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intel",
+      "name": "Intelligence",
+      "icon": "\ud83d\udd0d",
+      "health": "healthy",
+      "mandate": "Market research, competitive analysis, and content monitoring",
+      "units": [
+        {
+          "id": "intel-crons",
+          "name": "Research Tasks",
+          "type": "team",
+          "members": [
+            {
+              "id": "market-scan",
+              "name": "Market Scanner",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "0 8 * * *",
+              "lastStatus": "success",
+              "description": "Daily scan of industry news and trends"
+            },
+            {
+              "id": "social-monitor",
+              "name": "Social Monitor",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "0 */4 * * *",
+              "lastStatus": "success",
+              "description": "Monitors social media mentions and engagement"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "client-ops",
+      "name": "Client Operations",
+      "icon": "\ud83e\udd1d",
+      "health": "attention",
+      "mandate": "Client pipeline management, follow-ups, and relationship tracking",
+      "units": [
+        {
+          "id": "client-crons",
+          "name": "Client Tasks",
+          "type": "team",
+          "members": [
+            {
+              "id": "pipeline-sync",
+              "name": "Pipeline Sync",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "0 9 * * *",
+              "lastStatus": "success",
+              "description": "Syncs client pipeline data across systems"
+            },
+            {
+              "id": "followup-checker",
+              "name": "Follow-up Checker",
+              "impl": "cron",
+              "status": "active",
+              "schedule": "0 10 * * 1-5",
+              "lastStatus": "warning",
+              "consecutiveErrors": 1,
+              "description": "Checks for overdue client follow-ups"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cronMapping": {
+    "dashboard-refresh": "ops",
+    "email-scan": "comms",
+    "health-check": "ops",
+    "market-scan": "intel",
+    "social-monitor": "intel",
+    "followup-checker": "client-ops",
+    "pipeline-sync": "client-ops",
+    "log-rotation": "ops",
+    "notification-dispatch": "comms"
+  }
+}

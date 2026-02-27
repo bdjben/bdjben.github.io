@@ -1,0 +1,14 @@
+{
+  "jobs": [
+    {"id": "dashboard-refresh", "name": "Dashboard Refresh", "enabled": true, "schedule": "*/30 * * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T04:30:00Z", "nextRunAt": "2026-02-25T05:00:00Z", "consecutiveErrors": 0},
+    {"id": "email-scan", "name": "Email Scanner", "enabled": true, "schedule": "*/15 * * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T04:45:00Z", "nextRunAt": "2026-02-25T05:00:00Z", "consecutiveErrors": 0},
+    {"id": "health-check", "name": "System Health Check", "enabled": true, "schedule": "0 */2 * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T04:00:00Z", "nextRunAt": "2026-02-25T06:00:00Z", "consecutiveErrors": 0},
+    {"id": "market-scan", "name": "Market Scanner", "enabled": true, "schedule": "0 8 * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T06:00:00Z", "nextRunAt": "2026-02-26T06:00:00Z", "consecutiveErrors": 0},
+    {"id": "social-monitor", "name": "Social Monitor", "enabled": true, "schedule": "0 */4 * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T04:00:00Z", "nextRunAt": "2026-02-25T08:00:00Z", "consecutiveErrors": 0},
+    {"id": "followup-checker", "name": "Follow-up Checker", "enabled": true, "schedule": "0 10 * * 1-5 (Asia/Jerusalem)", "lastStatus": "warning", "lastRunAt": "2026-02-24T08:00:00Z", "nextRunAt": "2026-02-25T08:00:00Z", "consecutiveErrors": 1},
+    {"id": "pipeline-sync", "name": "Pipeline Sync", "enabled": true, "schedule": "0 9 * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T07:00:00Z", "nextRunAt": "2026-02-26T07:00:00Z", "consecutiveErrors": 0},
+    {"id": "log-rotation", "name": "Log Rotation", "enabled": true, "schedule": "0 3 * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T01:00:00Z", "nextRunAt": "2026-02-26T01:00:00Z", "consecutiveErrors": 0},
+    {"id": "notification-dispatch", "name": "Notification Dispatch", "enabled": true, "schedule": "*/5 * * * * (Asia/Jerusalem)", "lastStatus": "success", "lastRunAt": "2026-02-25T04:55:00Z", "nextRunAt": "2026-02-25T05:00:00Z", "consecutiveErrors": 0}
+  ],
+  "cronMapping": {}
+}
