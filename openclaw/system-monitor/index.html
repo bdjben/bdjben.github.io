@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background: #0a0e14; }
-iframe { border: none; width: 2560px; height: 1440px; transform-origin: top left; display: block; }
+iframe { border: none; width: 2560px; height: 1440px; transform-origin: top left; display: block; position: absolute; }
 </style>
 </head>
 <body>
@@ -18,7 +18,10 @@ iframe { border: none; width: 2560px; height: 1440px; transform-origin: top left
     var sx = window.innerWidth / 2560;
     var sy = window.innerHeight / 1440;
     var s = Math.min(sx, sy);
-    document.getElementById('dash').style.transform = 'scale(' + s + ')';
+    var f = document.getElementById('dash');
+    f.style.transform = 'scale(' + s + ')';
+    f.style.left = ((window.innerWidth - 2560 * s) / 2) + 'px';
+    f.style.top = ((window.innerHeight - 1440 * s) / 2) + 'px';
   }
   fit();
   window.addEventListener('resize', fit);
