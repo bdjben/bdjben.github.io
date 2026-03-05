@@ -44,7 +44,7 @@
     </div>
     <div style="background:rgba(0,212,255,0.05);border-radius:4px;padding:1.2em 1.5em;margin-top:1.5em;">
       <div style="font-size:0.7em;color:#00d4ff;letter-spacing:0.15em;font-weight:bold;margin-bottom:0.5em;">NAVIGATING THE DASHBOARDS</div>
-      <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Use ← → arrow keys, middle click, or swipe left/right on a touchpad to move between dashboards. Click the title name in the top-left corner to advance to the next dashboard.</div>
+      <div style="color:#c8d6e5;font-size:0.67em;line-height:1.7;">Use ← → arrow keys to navigate between dashboards, or click the dashboard name in the top-left corner to advance to the next.</div>
     </div>
   </div>
 </div>
@@ -195,24 +195,7 @@ document.addEventListener('click', function(e) {
     if (e.key === 'ArrowRight') nav(DASHBOARDS[(ci + 1) % DASHBOARDS.length]);
     else if (e.key === 'ArrowLeft') nav(DASHBOARDS[(ci - 1 + DASHBOARDS.length) % DASHBOARDS.length]);
   });
-  var sx=0, sy=0, swipeAccumX=0, swipeFired=false, SWIPE_THRESHOLD=80;
-  document.addEventListener('touchstart', function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; swipeAccumX=0; swipeFired=false; });
-  document.addEventListener('touchmove', function(e){
-    if(swipeFired) return;
-    swipeAccumX = sx - e.touches[0].clientX;
-    if(swipeAccumX > SWIPE_THRESHOLD){ swipeFired=true; nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]); }
-    else if(swipeAccumX < -SWIPE_THRESHOLD){ swipeFired=true; nav(DASHBOARDS[(ci-1+DASHBOARDS.length)%DASHBOARDS.length]); }
-  });
-  document.addEventListener('mousedown', function(e){ if(e.button===1){ e.preventDefault(); nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]); }});
-  var lastWheelTime=0;
-  document.addEventListener('wheel', function(e){
-    if(Math.abs(e.deltaX) > Math.abs(e.deltaY) && Date.now()-lastWheelTime>500){
-      lastWheelTime=Date.now();
-      var dx=e.deltaX;
-      if(dx<0) nav(DASHBOARDS[(ci+1)%DASHBOARDS.length]);
-      else nav(DASHBOARDS[(ci-1+DASHBOARDS.length)%DASHBOARDS.length]);
-    }
-  });
+
 })();
 </script>
 </body>
