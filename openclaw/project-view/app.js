@@ -505,14 +505,30 @@
   const DASHBOARDS = ['../agenda/', '../crm/', './', '../system-monitor/'];
   const currentIdx = 2; // Project View
 
-  document.addEventListener('keydown', function (e) {
+  function isTypingTarget(el) {
+    if (!el) return false;
+    const tag = (el.tagName || '').toUpperCase();
+    return tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable;
+  }
+
+  function handleNavKey(e) {
+    if (isTypingTarget(e.target) || isTypingTarget(document.activeElement)) return;
     if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      e.stopPropagation();
       (window.parent || window).location.href = DASHBOARDS[(currentIdx + 1) % DASHBOARDS.length];
     } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      e.stopPropagation();
       (window.parent || window).location.href = DASHBOARDS[(currentIdx - 1 + DASHBOARDS.length) % DASHBOARDS.length];
     }
-  });
+  }
 
+  document.addEventListener('keydown', handleNavKey, true);
+  window.addEventListener('keydown', handleNavKey, true);
+  window.addEventListener('load', function () {
+    try { window.focus(); } catch (e) {}
+  });
 
   // Middle-click to advance to next dashboard
   document.addEventListener('mousedown', function (e) {
