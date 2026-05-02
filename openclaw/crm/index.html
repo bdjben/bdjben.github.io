@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=2560">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard Demo - CRM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -17,6 +17,12 @@ iframe { border: none; width: 2560px; height: 1440px; transform-origin: top left
   var DASHBOARDS = ['../agenda/', '../crm/', '../project-view/', '../system-monitor/'];
   var currentIdx = 1;
   var frame = document.getElementById('dash');
+  var mobileQuery = window.matchMedia('(max-width: 720px), (pointer: coarse) and (max-width: 1024px)');
+
+  if (mobileQuery.matches && !/[?&]desktop=1(?:&|$)/.test(window.location.search)) {
+    window.location.replace('dashboard.html');
+    return;
+  }
 
   function fit() {
     var sx = window.innerWidth / 2560;
