@@ -7,27 +7,27 @@
         {
           src: "/assets/projects/languagecommand/home-signup.png",
           alt: "LanguageCommand landing page with app screenshots and signup form",
-          caption: "LanguageCommand landing page with app previews and account creation."
+          caption: "LanguageCommand: an intelligent, interactive, and multimodal AI-powered foreign language learning platform."
         },
         {
           src: "/assets/projects/languagecommand/why-it-works.png",
           alt: "LanguageCommand marketing section with proof, voice, and curriculum screenshots",
-          caption: "Overview of the method: proof-based practice, voice work, transliteration, translation, and curriculum depth."
+          caption: "The method: proof-based practice, voice work, transliteration, translation, and curriculum depth."
         },
         {
           src: "/assets/projects/languagecommand/progress-desktop.png",
           alt: "Hebrew Command daily progress dashboard with week-by-week curriculum cards",
-          caption: "Hebrew Command progress dashboard with daily proof requirements across speaking, listening, typing, writing, handwriting, reading, and review."
+          caption: "Progress tracker with daily proof requirements across listening, speaking, reading, typing, handwriting, and review. AI voice and speech models analyze the user's pronunciation, and image models analyze the user's handwriting according to modern language-specific norms for print and cursive."
         },
         {
           src: "/assets/projects/languagecommand/proof-writing-lab.png",
           alt: "LanguageCommand writing lab with selected day progress and Hebrew writing prompt",
-          caption: "Writing Lab for original Hebrew production, assessed before it counts as proof."
+          caption: "Writing lab for original production of written work, assessed before it counts as proof."
         },
         {
           src: "/assets/projects/languagecommand/voice-coach.png",
           alt: "LanguageCommand voice coach with audio waveform, prompt tabs, Hebrew sentence, transliteration, and recording button",
-          caption: "Voice Coach practice loop with audio, script, transliteration, translation, and recorded Hebrew reply."
+          caption: "Voice Coach practice loop with audio, script, transliteration, translation, and recorded reply."
         }
       ]
     },
@@ -38,12 +38,12 @@
         {
           src: "/assets/projects/local-library/source-detail.png",
           alt: "Local Library source detail view with source filters, key claims, curation metadata, and retrieval chunks",
-          caption: "Main library view with 409 local sources, 24,563 retrieval chunks, semantic search, source curation, pinning, AI reprocessing, and retrieval chunk inspection for a client-specific research workflow."
+          caption: "Local Library viewer with sources, processed retrieval chunks, rapid intelligent semantic search functionality, AI-generated summaries and outlines, bookmarked items, and links to stored original source files."
         },
         {
           src: "/assets/projects/local-library/source-browser.png",
           alt: "Local Library source browser modal with filters, source categories, and pinned items",
-          caption: "Source Browser for 409 visible sources across captions, documents, OCW videos, lecture notes, assignments, exams, research papers, images, and other local materials."
+          caption: "Source Browser for quick browsing of the full library, with filters and sorting options for labels, filetypes and key document metadata."
         }
       ]
     }

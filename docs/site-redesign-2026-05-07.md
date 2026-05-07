@@ -28,6 +28,7 @@ The copy now emphasizes:
 - Renamed the systems hub navigation to `Solutions` and added a no-caption auto-carousel at the top of `/openclaw/` for dashboards, research tooling, and agent orchestration screenshots.
 - Added `/side-projects/` for WhatsApp Collector and PennyScribe, including project screenshots, GitHub links, and a homepage teaser section.
 - Refined mobile-facing homepage copy, dashboard card descriptions, booking options, installation-readiness copy, mobile navigation wrapping, and footer consistency across primary pages.
+- Refined LanguageCommand and Local Library carousel captions, Self-hosted research library copy, PennyScribe privacy/model wording, deployment-path copy, and the Matrix / Element orchestration screenshot.
 - Enlarged small typography across navigation, contact links, section labels, cards, captions, and booking metadata.
 
 ## Validation
@@ -76,12 +77,27 @@ Before the May 7 mobile copy and booking refinement, preserve the then-current l
 - Tag: `pre-mobile-copy-booking-2026-05-07`
 - Baseline commit: `084a33d` (`Reorder side projects nav link`)
 
+Before the May 7 copy/caption and Matrix image refinement, preserve the then-current live site at:
+
+- Branch: `backup/pre-copy-caption-refinement-2026-05-07`
+- Tag: `pre-copy-caption-refinement-2026-05-07`
+- Baseline commit: `da27e1c` (`Refine mobile copy and booking options`)
+
 Rollback command to return to the state immediately before the mobile copy and booking refinement:
 
 ```bash
 git fetch origin
 git checkout main
 git reset --hard pre-mobile-copy-booking-2026-05-07
+git push --force-with-lease origin main
+```
+
+Rollback command to return to the state immediately before the copy/caption and Matrix image refinement:
+
+```bash
+git fetch origin
+git checkout main
+git reset --hard pre-copy-caption-refinement-2026-05-07
 git push --force-with-lease origin main
 ```
 
