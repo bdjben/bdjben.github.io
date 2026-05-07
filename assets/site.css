@@ -397,6 +397,24 @@ h3 {
   min-width: 0;
 }
 
+.image-expand-trigger {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: zoom-in;
+}
+
+.image-expand-trigger .browser-frame {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.image-expand-trigger:hover .browser-frame,
+.image-expand-trigger:focus-visible .browser-frame {
+  border-color: rgba(142, 12, 35, 0.52);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
 .browser-frame {
   overflow: hidden;
   margin: 0;
@@ -436,9 +454,15 @@ h3 {
 }
 
 .browser-frame img {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+.feature-browser-frame img {
+  aspect-ratio: 4070 / 2216;
+  object-position: top left;
 }
 
 .solution-hero-frame {
@@ -849,10 +873,12 @@ h3 {
   overflow: hidden;
 }
 
+.image-lightbox[hidden],
 .carousel-lightbox[hidden] {
   display: none;
 }
 
+.image-lightbox,
 .carousel-lightbox {
   position: fixed;
   inset: 0;
@@ -862,11 +888,31 @@ h3 {
   padding: clamp(14px, 3vw, 42px);
 }
 
+.image-lightbox-backdrop,
 .carousel-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(17, 17, 17, 0.62);
   backdrop-filter: blur(10px);
+}
+
+.image-lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1500px, 100%);
+  max-height: min(940px, calc(100svh - 32px));
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: #05090c;
+  box-shadow: 0 32px 110px rgba(0, 0, 0, 0.36);
+}
+
+.image-lightbox-panel img {
+  display: block;
+  width: 100%;
+  max-height: calc(100svh - 32px);
+  object-fit: contain;
 }
 
 .carousel-panel {
@@ -901,6 +947,7 @@ h3 {
   font-size: 2.55rem;
 }
 
+.image-lightbox-close,
 .carousel-close,
 .carousel-controls button {
   display: inline-flex;
@@ -917,6 +964,18 @@ h3 {
   cursor: pointer;
 }
 
+.image-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  border-color: rgba(255, 255, 255, 0.48);
+  background: rgba(5, 9, 12, 0.78);
+  color: white;
+}
+
+.image-lightbox-close:hover,
+.image-lightbox-close:focus-visible,
 .carousel-close:hover,
 .carousel-controls button:hover,
 .carousel-close:focus-visible,
