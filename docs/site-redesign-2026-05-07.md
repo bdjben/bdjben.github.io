@@ -26,6 +26,7 @@ The copy now emphasizes:
 - Added image carousel behavior for the LanguageCommand and Local Library project cards.
 - Added a Matrix / Element orchestration section showing how multi-agent, parallel-project workflows can be coordinated through private self-hosted chat rooms.
 - Renamed the systems hub navigation to `Solutions` and added a no-caption auto-carousel at the top of `/openclaw/` for dashboards, research tooling, and agent orchestration screenshots.
+- Added `/side-projects/` for WhatsApp Collector and PennyScribe, including project screenshots, GitHub links, and a homepage teaser section.
 - Enlarged small typography across navigation, contact links, section labels, cards, captions, and booking metadata.
 
 ## Validation
