@@ -24,6 +24,7 @@ The copy now emphasizes:
 - Added a dedicated `/booking/` page that presents YouCanBookMe options in the site design instead of sending users directly to an unstyled scheduler.
 - Added project screenshots for LanguageCommand.com and the self-hosted research library.
 - Added image carousel behavior for the LanguageCommand and Local Library project cards.
+- Added a Matrix / Element orchestration section showing how multi-agent, parallel-project workflows can be coordinated through private self-hosted chat rooms.
 - Enlarged small typography across navigation, contact links, section labels, cards, captions, and booking metadata.
 
 ## Validation

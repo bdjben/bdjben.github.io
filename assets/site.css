@@ -462,6 +462,57 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.orchestration-section {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.44fr) minmax(0, 1fr);
+  gap: clamp(30px, 6vw, 82px);
+  align-items: center;
+  background: #121414;
+  color: white;
+}
+
+.orchestration-section .section-label {
+  color: #f3d5dc;
+}
+
+.orchestration-copy {
+  max-width: 620px;
+}
+
+.orchestration-copy p {
+  color: #d2d1c9;
+  font-size: 1.16rem;
+  line-height: 1.62;
+}
+
+.orchestration-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.orchestration-points span {
+  min-height: 52px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f7f7f3;
+  font-weight: 700;
+}
+
+.orchestration-visual {
+  margin: 0;
+}
+
+.orchestration-visual img {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.34);
+}
+
 .work-card,
 .project-card,
 .booking-card,
@@ -982,6 +1033,7 @@ h3 {
   .split-section,
   .services-section,
   .work-hero,
+  .orchestration-section,
   .install-note-section {
     grid-template-columns: 1fr;
   }
@@ -1061,6 +1113,7 @@ h3 {
   .dashboard-grid.large,
   .project-grid,
   .project-grid.three,
+  .orchestration-points,
   .path-list,
   .readiness-grid,
   .site-footer {
