@@ -349,6 +349,10 @@ h3 {
   padding-top: 42px;
 }
 
+.hero-section + .orchestration-section {
+  padding-top: clamp(58px, 8vw, 108px);
+}
+
 .split-section,
 .services-section {
   display: grid;
