@@ -27,6 +27,7 @@ The copy now emphasizes:
 - Added a Matrix / Element orchestration section showing how multi-agent, parallel-project workflows can be coordinated through private self-hosted chat rooms.
 - Renamed the systems hub navigation to `Solutions` and added a no-caption auto-carousel at the top of `/openclaw/` for dashboards, research tooling, and agent orchestration screenshots.
 - Added `/side-projects/` for WhatsApp Collector and PennyScribe, including project screenshots, GitHub links, and a homepage teaser section.
+- Refined mobile-facing homepage copy, dashboard card descriptions, booking options, installation-readiness copy, mobile navigation wrapping, and footer consistency across primary pages.
 - Enlarged small typography across navigation, contact links, section labels, cards, captions, and booking metadata.
 
 ## Validation
@@ -34,7 +35,7 @@ The copy now emphasizes:
 Commands run locally before deployment:
 
 ```bash
-npx --yes html-validate index.html openclaw/index.html booking/index.html
+npx --yes html-validate index.html openclaw/index.html booking/index.html side-projects/index.html
 ```
 
 Rendered smoke testing used local Playwright against:
@@ -42,8 +43,9 @@ Rendered smoke testing used local Playwright against:
 - `http://127.0.0.1:8050/`
 - `http://127.0.0.1:8050/openclaw/`
 - `http://127.0.0.1:8050/booking/`
+- `http://127.0.0.1:8050/side-projects/`
 - desktop viewport `1440x1000`
-- mobile homepage viewport `390x844`
+- mobile viewport `402x874`
 
 Checks covered:
 
@@ -51,6 +53,8 @@ Checks covered:
 - No console errors or page errors
 - No horizontal overflow in tested viewports
 - Requested intro copy present on the homepage
+- Multi-agent orchestration appears before Dashboards on the homepage and `/openclaw/`
+- Flat-rate comprehensive engagement appears first on `/booking/` with an email inquiry link and no time or price
 - `Contact` heading present and `Direct contact` removed
 - `Codex / OpenClaw / Hermes` language present
 - No visible text under 16px in tested pages
@@ -66,7 +70,22 @@ Before publishing the redesign, preserve the previous live site at:
 - Tag: `pre-redesign-2026-05-07`
 - Baseline commit: `3d0ebff` (`Restore CRM dashboard layout`)
 
-Rollback command if needed:
+Before the May 7 mobile copy and booking refinement, preserve the then-current live site at:
+
+- Branch: `backup/pre-mobile-copy-booking-2026-05-07`
+- Tag: `pre-mobile-copy-booking-2026-05-07`
+- Baseline commit: `084a33d` (`Reorder side projects nav link`)
+
+Rollback command to return to the state immediately before the mobile copy and booking refinement:
+
+```bash
+git fetch origin
+git checkout main
+git reset --hard pre-mobile-copy-booking-2026-05-07
+git push --force-with-lease origin main
+```
+
+Rollback command to return to the older pre-redesign site:
 
 ```bash
 git fetch origin

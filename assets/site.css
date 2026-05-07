@@ -978,6 +978,10 @@ h3 {
   text-decoration: none;
 }
 
+.service-row.inquiry-row {
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+}
+
 .service-row span,
 .booking-index,
 .path-list span {
@@ -1056,6 +1060,10 @@ h3 {
   gap: 18px;
   align-items: center;
   padding: 22px;
+}
+
+.booking-card.inquiry-card {
+  grid-template-columns: 52px minmax(0, 1fr) auto;
 }
 
 .booking-card.featured {
@@ -1195,11 +1203,12 @@ h3 {
   .site-nav {
     grid-column: 1 / -1;
     justify-content: flex-start;
+    flex-wrap: wrap;
     order: 3;
     width: 100%;
-    gap: 20px;
-    overflow-x: auto;
-    font-size: 1.02rem;
+    gap: 12px 18px;
+    overflow-x: visible;
+    font-size: 1rem;
   }
 
   .site-nav a {
