@@ -7,12 +7,12 @@
         {
           src: "/assets/projects/languagecommand/home-signup.png",
           alt: "LanguageCommand landing page with app screenshots and signup form",
-          caption: "Landing page and account creation flow for the production-loop language learning product."
+          caption: "LanguageCommand landing page with app previews and account creation."
         },
         {
           src: "/assets/projects/languagecommand/why-it-works.png",
           alt: "LanguageCommand marketing section with proof, voice, and curriculum screenshots",
-          caption: "Product proof section showing the value proposition: evidence, voice, transliteration, translation, and curriculum depth."
+          caption: "Overview of the method: proof-based practice, voice work, transliteration, translation, and curriculum depth."
         },
         {
           src: "/assets/projects/languagecommand/progress-desktop.png",
