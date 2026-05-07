@@ -435,6 +435,36 @@ h3 {
   object-fit: cover;
 }
 
+.solution-hero-frame {
+  background: #070d10;
+}
+
+.solution-hero-carousel {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #05090c;
+}
+
+.solution-hero-carousel .auto-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: top left;
+  opacity: 0;
+  transform: scale(1.012);
+  transition: opacity 700ms ease, transform 900ms ease;
+}
+
+.solution-hero-carousel .auto-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  transform: scale(1);
+}
+
 .section-heading-row {
   justify-content: space-between;
   margin-bottom: clamp(26px, 5vw, 54px);
@@ -1128,6 +1158,10 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .solution-hero-carousel {
+    aspect-ratio: 4 / 3;
+  }
+
   .service-row {
     grid-template-columns: 36px minmax(0, 1fr);
     gap: 8px 14px;
@@ -1184,5 +1218,12 @@ h3 {
 @media (max-width: 360px) {
   h1 {
     font-size: 2.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solution-hero-carousel .auto-slide {
+    transform: none;
+    transition: opacity 1ms linear;
   }
 }

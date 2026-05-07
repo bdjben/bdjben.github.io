@@ -25,6 +25,7 @@ The copy now emphasizes:
 - Added project screenshots for LanguageCommand.com and the self-hosted research library.
 - Added image carousel behavior for the LanguageCommand and Local Library project cards.
 - Added a Matrix / Element orchestration section showing how multi-agent, parallel-project workflows can be coordinated through private self-hosted chat rooms.
+- Renamed the systems hub navigation to `Solutions` and added a no-caption auto-carousel at the top of `/openclaw/` for dashboards, research tooling, and agent orchestration screenshots.
 - Enlarged small typography across navigation, contact links, section labels, cards, captions, and booking metadata.
 
 ## Validation
@@ -52,6 +53,7 @@ Checks covered:
 - `Contact` heading present and `Direct contact` removed
 - `Codex / OpenClaw / Hermes` language present
 - No visible text under 16px in tested pages
+- `/openclaw/` Solutions hero loads the Agenda screenshot first, has no visible captions, and auto-rotates to the next screenshot
 - LanguageCommand carousel advances from `1 / 5` to `2 / 5`
 - Local Library carousel advances from `1 / 2` to `2 / 2`
 

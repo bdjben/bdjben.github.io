@@ -118,3 +118,47 @@
     if (event.key === "ArrowRight") moveCarousel(1);
   });
 })();
+
+(function () {
+  const carousels = document.querySelectorAll("[data-auto-carousel]");
+  if (!carousels.length) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  carousels.forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll(".auto-slide"));
+    if (slides.length < 2) return;
+
+    let activeIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+    let timer = null;
+
+    function showSlide(index) {
+      slides[activeIndex].classList.remove("is-active");
+      activeIndex = (index + slides.length) % slides.length;
+      slides[activeIndex].classList.add("is-active");
+    }
+
+    function start() {
+      if (reduceMotion || timer || document.hidden) return;
+      timer = window.setInterval(() => showSlide(activeIndex + 1), 4200);
+    }
+
+    function stop() {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = null;
+    }
+
+    carousel.addEventListener("mouseenter", stop);
+    carousel.addEventListener("mouseleave", start);
+    carousel.addEventListener("focusin", stop);
+    carousel.addEventListener("focusout", start);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
+
+    start();
+  });
+})();
