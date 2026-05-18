@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VoiceClaw Realtime Support</title>
+  <meta name="description" content="Support, setup help, troubleshooting, and contact information for VoiceClaw Realtime.">
+  <meta property="og:title" content="VoiceClaw Realtime Support">
+  <meta property="og:description" content="Get setup help for VoiceClaw Realtime, VoiceClaw Companion, OpenAI credentials, OpenClaw, Tailscale, and Apple Watch.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;450;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Ben Badejo home">
+      <span class="brand-word">Ben Badejo</span>
+      <span class="brand-rule" aria-hidden="true"></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="/voiceclawrealtime/">VoiceClaw</a>
+      <a href="/voiceclawrealtime/support/" aria-current="page">Support</a>
+      <a href="/voiceclawrealtime/privacy/">Privacy</a>
+      <a href="/voiceclawrealtime/terms/">Terms</a>
+    </nav>
+    <a class="header-action" href="mailto:ben@benbadejo.com">Email</a>
+  </header>
+
+  <main>
+    <section class="legal-hero compact">
+      <p class="section-label">Support</p>
+      <h1>VoiceClaw Realtime support.</h1>
+      <p class="lead">For setup help, billing questions, bug reports, privacy questions, or account support, contact <a href="mailto:ben@benbadejo.com">ben@benbadejo.com</a>.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="mailto:ben@benbadejo.com">Email support</a>
+        <a class="button secondary" href="https://github.com/bdjben/Voice.Claw-Companion/releases" target="_blank" rel="noreferrer">Download Companion</a>
+      </div>
+    </section>
+
+    <section class="section legal-copy">
+      <p class="section-label">Getting started</p>
+      <h2>Setup checklist</h2>
+      <ol class="legal-list">
+        <li>Install VoiceClaw Realtime on iPhone from the App Store or TestFlight.</li>
+        <li>Open Settings in the iPhone app and add either an OpenAI API key or pair with VoiceClaw Companion to use OpenClaw OAuth through your ChatGPT Plus/Pro subscription.</li>
+        <li>Download the macOS Companion app from the <a href="https://github.com/bdjben/Voice.Claw-Companion/releases" target="_blank" rel="noreferrer">VoiceClaw Companion Releases page</a>.</li>
+        <li>If you use OpenClaw on your Mac, install OpenClaw and point VoiceClaw Companion to your OpenClaw installation.</li>
+        <li>If you want private iPhone-to-Mac access, install and sign in to Tailscale on both devices. If you want Apple Watch access when the iPhone is not nearby, configure an optional HTTPS tunnel.</li>
+        <li>Use the QR code in VoiceClaw Companion to sync setup settings to iPhone, then use Sync to iPhone in the Apple Watch app to sync watch settings.</li>
+      </ol>
+    </section>
+
+    <section class="section legal-grid-section">
+      <article class="legal-card">
+        <h2>OpenAI and subscription access</h2>
+        <p>VoiceClaw can use an OpenAI API key entered by the user. It can also use OpenClaw OAuth through VoiceClaw Companion when OpenClaw is installed and configured on the user's Mac.</p>
+      </article>
+      <article class="legal-card">
+        <h2>VoiceClaw Companion</h2>
+        <p>The Mac Companion installs and runs the local bridge used for pairing, diagnostics, Tailscale Serve configuration, optional HTTPS tunnel settings, and OpenClaw access.</p>
+      </article>
+      <article class="legal-card">
+        <h2>Apple Watch</h2>
+        <p>The watchOS app can use Direct GPT-Realtime-2, GPT-5.5 Instant, iPhone relay, or an optional HTTPS tunnel, depending on your settings and network availability.</p>
+      </article>
+      <article class="legal-card">
+        <h2>Billing</h2>
+        <p>Subscriptions are handled by Apple through the App Store. To manage or cancel a subscription, open Settings on your device, tap your Apple ID, then Subscriptions.</p>
+      </article>
+    </section>
+
+    <section class="section legal-copy">
+      <p class="section-label">Troubleshooting</p>
+      <h2>Common issues</h2>
+      <dl class="legal-definitions">
+        <dt>No voice output</dt>
+        <dd>Check Diagnostics in the iPhone app, confirm microphone permission, confirm speaker output, and make sure a valid OpenAI API key or OpenClaw OAuth route is configured.</dd>
+        <dt>Cannot reach OpenClaw</dt>
+        <dd>Confirm VoiceClaw Companion is running on your Mac, OpenClaw is installed, the OpenClaw install path is correct, and either Tailscale or an optional HTTPS tunnel is configured.</dd>
+        <dt>Apple Watch cannot reach the Mac</dt>
+        <dd>Apple Watch cannot use private Tailscale networking by itself. Use iPhone relay when the iPhone is nearby, or configure an optional HTTPS tunnel if you want watch access away from iPhone.</dd>
+        <dt>Subscription or purchase issue</dt>
+        <dd>Use Restore Purchases in the app. If App Store billing still does not work, contact Apple Support for billing and email ben@benbadejo.com for app support.</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <h2>Support</h2>
+      <p>VoiceClaw Realtime support is available by email.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="mailto:ben@benbadejo.com">ben@benbadejo.com</a>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <a href="/voiceclawrealtime/privacy/">Privacy Policy</a>
+      <a href="/voiceclawrealtime/terms/">Terms of Use</a>
+    </div>
+    <div>
+      <h3>Product</h3>
+      <a href="/voiceclawrealtime/">VoiceClaw Realtime</a>
+      <a href="https://github.com/bdjben/Voice.Claw-Companion/releases" target="_blank" rel="noreferrer">Companion app</a>
+    </div>
+  </footer>
+</body>
+</html>

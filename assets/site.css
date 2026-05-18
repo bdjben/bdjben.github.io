@@ -259,6 +259,109 @@ h3 {
   font-weight: 700;
 }
 
+.legal-hero {
+  padding: clamp(52px, 7vw, 96px) clamp(20px, 5vw, 64px) clamp(42px, 6vw, 78px);
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-hero.compact {
+  padding-bottom: clamp(34px, 5vw, 58px);
+}
+
+.legal-hero h1 {
+  max-width: 13ch;
+}
+
+.legal-hero a,
+.legal-document a,
+.legal-copy a,
+.legal-card a {
+  text-underline-offset: 0.16em;
+}
+
+.legal-grid-section {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.legal-card {
+  min-height: 100%;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: 0 14px 42px rgba(23, 23, 23, 0.045);
+}
+
+.legal-card h2 {
+  margin-bottom: 12px;
+  font-family: var(--sans);
+  font-size: 1.42rem;
+  line-height: 1.18;
+}
+
+.legal-card p:last-child,
+.legal-copy p:last-child,
+.legal-document p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-copy,
+.legal-document {
+  max-width: 980px;
+}
+
+.legal-copy h2,
+.legal-document h2 {
+  margin-top: 36px;
+  font-family: var(--sans);
+  font-size: 1.62rem;
+  line-height: 1.18;
+}
+
+.legal-document h1 {
+  max-width: 14ch;
+  margin-bottom: 10px;
+}
+
+.legal-updated {
+  margin-bottom: 34px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.legal-list {
+  margin: 0 0 24px;
+  padding-left: 1.35em;
+}
+
+.legal-list li {
+  margin-bottom: 12px;
+  color: var(--ink-soft);
+}
+
+.legal-definitions {
+  margin: 0;
+}
+
+.legal-definitions dt {
+  margin-top: 22px;
+  font-weight: 700;
+}
+
+.legal-definitions dd {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+}
+
+.legal-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 28px;
+}
+
 .button.primary {
   background: var(--accent);
   color: white;
@@ -1204,7 +1307,8 @@ h3 {
   .dashboard-grid.large,
   .project-grid,
   .project-grid.three,
-  .readiness-grid {
+  .readiness-grid,
+  .legal-grid-section {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1300,6 +1404,7 @@ h3 {
   .orchestration-points,
   .path-list,
   .readiness-grid,
+  .legal-grid-section,
   .site-footer {
     grid-template-columns: 1fr;
   }
