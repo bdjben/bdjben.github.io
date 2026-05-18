@@ -362,6 +362,31 @@ h3 {
   margin-top: 28px;
 }
 
+.review-setup {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.86fr) minmax(0, 1fr);
+  gap: clamp(26px, 5vw, 58px);
+  align-items: start;
+}
+
+.review-qr-panel {
+  padding: clamp(18px, 3vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-2);
+  box-shadow: var(--shadow);
+}
+
+.review-qr-panel img {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.review-setup-copy {
+  padding-top: 8px;
+}
+
 .button.primary {
   background: var(--accent);
   color: white;
@@ -1308,7 +1333,8 @@ h3 {
   .project-grid,
   .project-grid.three,
   .readiness-grid,
-  .legal-grid-section {
+  .legal-grid-section,
+  .review-setup {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1405,6 +1431,7 @@ h3 {
   .path-list,
   .readiness-grid,
   .legal-grid-section,
+  .review-setup,
   .site-footer {
     grid-template-columns: 1fr;
   }
