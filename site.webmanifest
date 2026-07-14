@@ -1,0 +1,17 @@
+{
+  "name": "Ben Badejo | Applied AI Systems",
+  "short_name": "Ben Badejo",
+  "description": "Applied AI systems for business operations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f8f6",
+  "theme_color": "#0b4a43",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

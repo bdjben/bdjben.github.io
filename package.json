@@ -1,0 +1,13 @@
+{
+  "name": "ben-badejo-applied-ai-site",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Production website for Ben Badejo's applied AI systems practice.",
+  "scripts": {
+    "test": "node --test tests/site.test.mjs",
+    "serve": "python3 -m http.server --bind 127.0.0.1 8060"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
