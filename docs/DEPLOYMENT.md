@@ -8,6 +8,7 @@
 - Custom domain: `benbadejo.com`
 - Custom-domain declaration: root `CNAME`
 - Deployment platform: GitHub Pages
+- HTTPS enforcement: enabled
 
 The domain is already attached to this repository. A normal website release requires no DNS changes.
 

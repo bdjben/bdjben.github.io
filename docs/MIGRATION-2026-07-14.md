@@ -36,3 +36,15 @@ The migration intentionally leaves these directories in place:
 - `side-projects/`
 
 The primary navigation now uses `/book/` and `/dashboards/`; the older routes remain available to avoid breaking saved links.
+
+## Production verification
+
+- Website release commit: `a40f55b5003839e1a4ad43b44ec00ee48894f389`
+- GitHub Pages workflow run: `29301342757`
+- Workflow result: successful
+- GitHub Pages status: built
+- Custom domain: `benbadejo.com`
+- HTTPS enforcement: enabled
+- HTTP behavior: redirects to `https://benbadejo.com/`
+
+The homepage, booking page, dashboard index, four interactive dashboard routes, shared stylesheet, script, favicon, and social image all returned successful production responses after deployment.
