@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Client Portal | Ben Badejo</title>
+  <meta name="description" content="Client document portal for Ben Badejo's applied AI systems practice.">
+  <meta name="theme-color" content="#0b4a43">
+  <link rel="canonical" href="https://benbadejo.com/client-portal/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="preload" href="../fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+  <script src="./portal.js" defer></script>
+</head>
+<body id="top" class="client-portal-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="Ben Badejo home">Ben Badejo</a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="site-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="../#capabilities">What we build</a>
+      <a href="../#engagements">Engagements</a>
+      <a href="../#work">Work</a>
+      <a href="../dashboards/">Dashboards</a>
+      <a href="../#trust">Security</a>
+      <a href="../#company">About</a>
+      <a class="mobile-portal-link" href="./" aria-current="page">Client Portal</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-cta header-portal" href="./" aria-current="page">Client Portal</a>
+      <a class="header-cta" href="../book/">Book a call</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="portal-section">
+      <div class="page-shell portal-layout">
+        <div class="portal-intro">
+          <p class="eyebrow">Client workspace</p>
+          <h1>Client Portal</h1>
+          <p>Enter the Client Key provided to you to access the files and documents prepared for this engagement.</p>
+          <p class="portal-note">This workspace keeps shared materials organized in one direct, easy-to-return-to location.</p>
+        </div>
+
+        <section class="portal-panel portal-login" data-portal-login aria-labelledby="portal-login-heading">
+          <div class="portal-panel-header">
+            <p class="eyebrow">Access documents</p>
+            <h2 id="portal-login-heading">Enter your Client Key</h2>
+            <p>Use the key included with your portal invitation.</p>
+          </div>
+          <form class="portal-form" data-portal-form novalidate>
+            <div class="portal-field">
+              <label for="client-key">Client Key</label>
+              <input id="client-key" name="client-key" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Enter your Client Key" required aria-describedby="portal-status">
+            </div>
+            <p class="portal-status" id="portal-status" data-portal-status role="alert" aria-live="polite"></p>
+            <button class="button primary" type="submit">Continue <span aria-hidden="true">→</span></button>
+          </form>
+        </section>
+
+        <section class="portal-panel portal-documents" data-portal-documents aria-labelledby="portal-documents-heading" tabindex="-1" hidden>
+          <div class="portal-panel-header">
+            <div>
+              <p class="eyebrow">Client materials</p>
+              <h2 id="portal-documents-heading">Available Files and Documents</h2>
+              <p>Select a file below to download it to your device.</p>
+            </div>
+            <button class="portal-sign-out" type="button" data-portal-sign-out>Sign out</button>
+          </div>
+          <ul class="document-list">
+            <li class="document-row">
+              <div>
+                <span class="document-name">Sign in with ChatGPT: Technical Overview</span>
+                <span class="document-meta">Word document · 43 KB</span>
+              </div>
+              <a class="document-download" href="./files/Sign-in-with-ChatGPT-Technical-Overview.docx" download>Download <span aria-hidden="true">↓</span></a>
+            </li>
+            <li class="document-row">
+              <div>
+                <span class="document-name">Sign in with ChatGPT: Technical Overview</span>
+                <span class="document-meta">PDF document · 141 KB</span>
+              </div>
+              <a class="document-download" href="./files/Sign-in-with-ChatGPT-Technical-Overview.pdf" download>Download <span aria-hidden="true">↓</span></a>
+            </li>
+            <li class="document-row">
+              <div>
+                <span class="document-name">ChatGPT OAuth Transport Test Package</span>
+                <span class="document-meta">ZIP archive · 18 KB</span>
+              </div>
+              <a class="document-download" href="./files/chatgpt-oauth-transport-test-1.0.0.tgz.zip" download>Download <span aria-hidden="true">↓</span></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-grid">
+      <div>
+        <a class="brand footer-brand" href="../">Ben Badejo</a>
+        <p>Applied AI systems for business operations.</p>
+      </div>
+      <div>
+        <strong>Explore</strong>
+        <a href="../#capabilities">What we build</a>
+        <a href="../#engagements">Engagements</a>
+        <a href="../#work">Selected work</a>
+        <a href="../dashboards/">Live dashboards</a>
+        <a href="../#trust">Security</a>
+        <a href="./" aria-current="page">Client Portal</a>
+        <a href="../book/">Book a session</a>
+      </div>
+      <div>
+        <strong>Connect</strong>
+        <a href="mailto:ben@benbadejo.com">ben@benbadejo.com</a>
+        <a href="tel:+12122037591">+1 (212) 203-7591</a>
+        <a href="https://www.linkedin.com/in/benjaminbadejo" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div>
+        <strong>Delivery</strong>
+        <p>Founder-led strategy, implementation, training, and system stewardship.</p>
+      </div>
+    </div>
+    <div class="page-shell footer-bottom">
+      <span>© <span data-year>2026</span> Ben Badejo</span>
+      <span>Founder-led implementation · Cloud, hybrid, or local</span>
+    </div>
+  </footer>
+</body>
+</html>

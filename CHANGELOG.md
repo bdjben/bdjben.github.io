@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 - 2026-07-17
+
+- Add a noindex Client Portal entry beside the primary booking action.
+- Add a session-based client-key prompt and three downloadable client documents.
+- Add responsive portal navigation, automated coverage, and implementation notes for future server-side authentication.
+
 ## 2.0.0 - 2026-07-14
 
 - Move the approved applied AI systems design to `benbadejo.com`.

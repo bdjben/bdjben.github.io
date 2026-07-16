@@ -33,6 +33,8 @@ This is a dependency-free static site:
 
 - `index.html`: primary company website
 - `book/index.html`: direct booking menu with appointment-specific YouCanBook.me links
+- `client-portal/index.html`: lightweight, noindex document portal with a client-key prompt
+- `client-portal/files/`: documents currently offered through the portal
 - `dashboards/index.html`: showcase for the four interactive dashboard demos
 - `openclaw/`: retained interactive Agenda, CRM, Project View, and System Monitor applications
 - `styles.css`: responsive visual system shared by the primary pages
@@ -42,6 +44,8 @@ This is a dependency-free static site:
 - `tests/`: production smoke tests
 
 Legacy portfolio and VoiceClaw routes remain in place for URL stability. No analytics, cookies, forms, or third-party scripts are loaded by the primary site.
+
+The Client Portal is an interim static access gate, not secure authentication. See [docs/CLIENT-PORTAL.md](docs/CLIENT-PORTAL.md) for its operating model and the requirements for a future authenticated implementation.
 
 ## Copyright
 
